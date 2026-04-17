@@ -1,0 +1,112 @@
+# ---------- build output ----------
+dist/
+build/
+out/
+.astro/
+.next/
+.nuxt/
+.vercel/
+.netlify/
+.turbo/
+.parcel-cache/
+.cache/
+
+# ---------- dependencies ----------
+node_modules/
+jspm_packages/
+bower_components/
+.pnpm-store/
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+
+# ---------- env / secrets ----------
+.env
+.env.*
+.dev.vars
+.dev.vars.*
+*.pem
+*.key
+
+# ---------- cloudflare wrangler ----------
+.wrangler/
+wrangler.toml.bak
+
+# ---------- logs ----------
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# ---------- test / coverage ----------
+coverage/
+.nyc_output/
+*.lcov
+.vitest-cache/
+
+# ---------- typescript / lint caches ----------
+*.tsbuildinfo
+.eslintcache
+.stylelintcache
+
+# ---------- editors / IDE ----------
+.vscode/
+!.vscode/extensions.json
+.idea/
+.fleet/
+.zed/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+.history/
+
+# ---------- OS ----------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# ---------- tool / agent state ----------
+.gstack/
+.claude/
+.cursor/
+.aider*
+.serena/
+
+# ---------- internal planning docs (local only) ----------
+PLAN.md
+TODOS.md
+NOTES.md
+docs/superpowers/
+TEMPLATE.md
+
+# ---------- generated / regenerable data ----------
+worker/corpus.json
+corpus-manifest.json
+# NOTE: src/data/medium-cache.json is NOT ignored — it's imported as a
+# build-time fallback in src/lib/medium.ts and must be present for the
+# Astro build to succeed.
+
+# ---------- private eval harness ----------
+/eval/
+
+# ---------- source assets kept outside public/ ----------
+/headshot.jpeg
+
+# ---------- design drafts / mockups (local only) ----------
+scripts/og-mockup.*

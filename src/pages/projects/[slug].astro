@@ -1,0 +1,133 @@
+---
+import Base from '../../layouts/Base.astro';
+import ProjectDiagram from '../../components/ProjectDiagram.astro';
+import { projects, type Project } from '../../data/projects';
+
+export function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+
+// Sibling navigation: walk through ALL projects in array order, not just featured.
+const idx = projects.findIndex((p) => p.slug === project.slug);
+const prev = idx > 0 ? projects[idx - 1] : null;
+const next = idx >= 0 && idx < projects.length - 1 ? projects[idx + 1] : null;
+---
+
+<Base
+  title={project.title}
+  description={project.oneLine}
+>
+  <article class="narrow-width">
+    <p class="text-sm mb-8">
+      <a href="/" data-back-link>← back</a>
+    </p>
+
+    <script is:inline>
+      // Use the browser's back button if the visitor came from this site.
+      // Fall back to / for direct entry (search, shared link, new tab).
+      (function () {
+        const link = document.querySelector('[data-back-link]');
+        if (!link) return;
+        const ref = document.referrer;
+        const sameOrigin = ref && new URL(ref).origin === window.location.origin;
+        if (sameOrigin && window.history.length > 1) {
+          link.addEventListener('click', function (event) {
+            event.preventDefault();
+            window.history.back();
+          });
+        }
+      })();
+    </script>
+
+    <header class="mb-10">
+      <h1 class="mb-3">{project.title}</h1>
+      <p class="text-lg prose-muted">{project.subtitle}</p>
+      <div class="mt-6 flex flex-wrap gap-4 text-sm">
+        <a href={project.repoUrl} rel="external">GitHub →</a>
+        {project.demoUrl && <a href={project.demoUrl} rel="external">Watch the full demo →</a>}
+      </div>
+    </header>
+
+    {project.fullDemoSrc && project.posterSrc && (
+      <div class="mb-12 rule-line border">
+        <video
+          controls
+          preload="metadata"
+          poster={project.posterSrc}
+          class="w-full h-auto"
+        >
+          <source src={project.fullDemoSrc} type="video/webm" />
+          Your browser does not support embedded video.
+        </video>
+        <div class="px-4 py-3 text-xs font-mono prose-muted bg-tinted dark:bg-tinted-dark border-t rule-line">
+          ▶ Full demo with audio. Click play to start.
+        </div>
+      </div>
+    )}
+    {!project.fullDemoSrc && project.videoSrc && project.posterSrc && (
+      <div class="mb-12 rule-line border">
+        <video
+          controls
+          preload="none"
+          poster={project.posterSrc}
+          class="w-full h-auto"
+        >
+          <source src={project.videoSrc} type="video/webm" />
+          Your browser does not support embedded video.
+        </video>
+      </div>
+    )}
+
+    <section class="mb-10">
+      <h2 class="text-sm uppercase tracking-wider prose-muted">What it does</h2>
+      <ul class="space-y-3 list-disc pl-5 leading-relaxed">
+        {project.whatItDoes.map((b) => <li>{b}</li>)}
+      </ul>
+    </section>
+
+    <section class="mb-10">
+      <h2 class="text-sm uppercase tracking-wider prose-muted">Why I built it</h2>
+      <p class="leading-relaxed">{project.whyBuilt}</p>
+    </section>
+
+    <section class="mb-10">
+      <h2 class="text-sm uppercase tracking-wider prose-muted">How it works</h2>
+      <ProjectDiagram slug={project.slug} />
+    </section>
+
+    <section class="mb-10">
+      <h2 class="text-sm uppercase tracking-wider prose-muted">What was hard</h2>
+      <ul class="space-y-3 list-disc pl-5 leading-relaxed">
+        {project.hardPoints.map((b) => <li>{b}</li>)}
+      </ul>
+    </section>
+
+    <section class="mb-10">
+      <h2 class="text-sm uppercase tracking-wider prose-muted">Outcome</h2>
+      <ul class="space-y-3 list-disc pl-5 leading-relaxed">
+        {project.outcomePoints.map((b) => <li>{b}</li>)}
+      </ul>
+    </section>
+
+    <section class="mb-10">
+      <h2 class="text-sm uppercase tracking-wider prose-muted">Tech</h2>
+      <p class="font-mono text-sm">{project.stack}</p>
+    </section>
+
+    {(prev || next) && (
+      <nav class="mt-16 pt-8 rule-line border-t flex justify-between text-sm">
+        {prev ? <a href={`/projects/${prev.slug}/`}>← {prev.title}</a> : <span />}
+        {next ? <a href={`/projects/${next.slug}/`}>{next.title} →</a> : <span />}
+      </nav>
+    )}
+  </article>
+</Base>

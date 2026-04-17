@@ -1,0 +1,129 @@
+---
+import Base from '../layouts/Base.astro';
+import { projects } from '../data/projects';
+
+// Split by featured status, not video presence. Featured work appears
+// first (with or without a video). Non-featured work follows below.
+const featured = projects.filter((p) => p.featured);
+const other = projects.filter((p) => !p.featured);
+---
+
+<Base title="Portfolio" description="Every project: Claude skills, multi-agent systems, audit tools, and more.">
+  <section class="content-width mb-16">
+    <p class="text-sm font-mono prose-muted mb-4 uppercase tracking-wider">
+      <span class="inline-block w-8 h-px bg-accent dark:bg-accent-dark align-middle mr-2"></span>
+      Portfolio
+    </p>
+    <h1 class="mb-8">Everything I've built.</h1>
+    <p class="text-xl prose-muted leading-relaxed max-w-[640px]">
+      Full list. Each project has a deep-dive page with architecture, a
+      link to the GitHub repo, and what I learned from building it.
+    </p>
+  </section>
+
+  <!-- Featured work: uses 5-col grid. Shows video if present, otherwise a
+       big numbered card with subtitle (same fallback as FeaturedProject). -->
+  <section class="content-width mb-24" aria-labelledby="featured-heading">
+    <h2 id="featured-heading" class="font-display text-4xl md:text-5xl mt-0 mb-10 leading-tight">
+      Featured work.
+    </h2>
+    <div class="space-y-16">
+      {featured.map((project, i) => (
+        <article class="grid gap-8 md:gap-10 md:grid-cols-5 items-start">
+          <div class="md:col-span-3">
+            <a href={`/projects/${project.slug}/`} class="block nolink group">
+              <div class="aspect-video overflow-hidden bg-rule dark:bg-rule-dark relative rule-line border group-hover:border-accent dark:group-hover:border-accent-dark transition-colors">
+                {project.videoSrc ? (
+                  <video
+                    src={project.videoSrc}
+                    poster={project.posterSrc}
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    class="w-full h-full object-cover"
+                    aria-hidden="true"
+                  ></video>
+                ) : project.posterSrc ? (
+                  <img
+                    src={project.posterSrc}
+                    alt={project.title}
+                    loading="lazy"
+                    decoding="async"
+                    class="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div class="w-full h-full flex items-center justify-center bg-tinted dark:bg-tinted-dark">
+                    <div class="text-center p-8">
+                      <div class="font-display text-6xl md:text-7xl text-accent dark:text-accent-dark opacity-60">
+                        {String(i + 1).padStart(2, '0')}
+                      </div>
+                      <div class="text-sm font-mono uppercase tracking-wider prose-muted mt-2">
+                        {project.subtitle}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </a>
+          </div>
+          <div class="md:col-span-2">
+            <p class="text-xs font-mono uppercase tracking-wider prose-muted mb-3">
+              <span class="text-gold dark:text-gold-dark">#{String(i + 1).padStart(2, '0')}</span>
+              <span class="mx-2">/</span>
+              {project.subtitle}
+            </p>
+            <h3 class="text-2xl md:text-3xl font-display mb-3 leading-tight">
+              <a href={`/projects/${project.slug}/`} class="nolink hover:text-accent dark:hover:text-accent-dark transition-colors">
+                {project.title}
+              </a>
+            </h3>
+            <p class="prose-muted mb-4 leading-relaxed text-sm">{project.oneLine}</p>
+            <p class="text-xs font-mono prose-muted mb-3">{project.stack}</p>
+            <div class="flex gap-5 text-sm">
+              <a href={`/projects/${project.slug}/`} class="font-semibold text-accent dark:text-accent-dark">Deep dive →</a>
+              <a href={project.repoUrl} rel="external">GitHub →</a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- More work: non-featured projects in a 2-col card grid. -->
+  {other.length > 0 && (
+    <section class="bg-tinted dark:bg-tinted-dark py-16 md:py-20 rule-line border-y mb-24">
+      <div class="content-width" aria-labelledby="more-heading">
+        <h2 id="more-heading" class="font-display text-4xl md:text-5xl mt-0 mb-10 leading-tight">
+          More work.
+        </h2>
+        <div class="grid gap-6 md:grid-cols-2">
+          {other.map((project) => (
+            <a
+              href={`/projects/${project.slug}/`}
+              class="block nolink group rule-line border p-6 bg-paper dark:bg-paper-dark hover:border-accent dark:hover:border-accent-dark transition-colors"
+            >
+              <p class="text-xs font-mono uppercase tracking-wider prose-muted mb-2">
+                {project.subtitle}
+              </p>
+              <h3 class="text-xl md:text-2xl font-display mb-3 leading-tight group-hover:text-accent dark:group-hover:text-accent-dark transition-colors">
+                {project.title}
+              </h3>
+              <p class="prose-muted mb-4 leading-relaxed text-sm">{project.oneLine}</p>
+              <p class="text-xs font-mono prose-muted mb-3">{project.stack}</p>
+              <span class="text-sm font-semibold text-accent dark:text-accent-dark">Deep dive →</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="content-width mb-16">
+    <p class="text-sm prose-muted">
+      Looking for something not listed here?
+      <a href="https://github.com/muggl3mind">Browse my full GitHub →</a>
+    </p>
+  </section>
+</Base>

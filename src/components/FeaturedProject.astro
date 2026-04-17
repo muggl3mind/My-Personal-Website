@@ -1,0 +1,74 @@
+---
+import type { Project } from '../data/projects';
+
+export interface Props {
+  project: Project;
+  reverse?: boolean;
+  index: number;
+}
+
+const { project, reverse = false, index } = Astro.props;
+const hasVideo = !!project.videoSrc && !!project.posterSrc;
+const hasCover = !hasVideo && !!project.posterSrc;
+---
+
+<article class={`grid gap-8 md:gap-10 md:grid-cols-5 items-center ${reverse ? 'md:[&>*:first-child]:order-2' : ''}`}>
+  <!-- Media -->
+  <div class="md:col-span-3">
+    <a href={`/projects/${project.slug}/`} class="block nolink group">
+      <div class="aspect-video overflow-hidden bg-rule dark:bg-rule-dark relative rule-line border group-hover:border-accent dark:group-hover:border-accent-dark transition-colors">
+        {hasVideo ? (
+          <video
+            src={project.videoSrc}
+            poster={project.posterSrc}
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            class="w-full h-full object-cover"
+            aria-hidden="true"
+          ></video>
+        ) : hasCover ? (
+          <img
+            src={project.posterSrc}
+            alt={project.title}
+            loading="lazy"
+            decoding="async"
+            class="w-full h-full object-cover"
+          />
+        ) : (
+          <div class="w-full h-full flex items-center justify-center bg-tinted dark:bg-tinted-dark">
+            <div class="text-center p-8">
+              <div class="font-display text-6xl md:text-7xl text-accent dark:text-accent-dark opacity-60">
+                {String(index + 1).padStart(2, '0')}
+              </div>
+              <div class="text-sm font-mono uppercase tracking-wider prose-muted mt-2">
+                {project.subtitle}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </a>
+  </div>
+
+  <!-- Text -->
+  <div class="md:col-span-2">
+    <p class="text-xs font-mono uppercase tracking-wider prose-muted mb-3">
+      <span class="text-gold dark:text-gold-dark">#{String(index + 1).padStart(2, '0')}</span>
+      <span class="mx-2">/</span>
+      {project.subtitle}
+    </p>
+    <h3 class="text-3xl md:text-4xl font-display mb-4 leading-tight">
+      <a href={`/projects/${project.slug}/`} class="nolink hover:text-accent dark:hover:text-accent-dark transition-colors">
+        {project.title}
+      </a>
+    </h3>
+    <p class="prose-muted mb-5 leading-relaxed">{project.oneLine}</p>
+    <p class="text-xs font-mono prose-muted mb-4">{project.stack}</p>
+    <a href={`/projects/${project.slug}/`} class="text-sm font-semibold text-accent dark:text-accent-dark">
+      Read the deep dive →
+    </a>
+  </div>
+</article>

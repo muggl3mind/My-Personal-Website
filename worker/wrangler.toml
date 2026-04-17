@@ -1,0 +1,20 @@
+name = "lovely-chat"
+main = "index.ts"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+rules = [
+  { type = "Text", globs = ["corpus.json"], fallthrough = false }
+]
+
+# Workers AI binding — native Cloudflare LLM + embeddings
+[ai]
+binding = "AI"
+
+# KV namespace for rate limits + telemetry counters
+[[kv_namespaces]]
+binding = "RATE_LIMIT"
+id = "756218dca4c14bd0a9316be47462fd06"
+
+# Secrets set via `wrangler secret put` (do NOT commit values):
+#   ADMIN_KEY   — guards /admin and /build-corpus routes

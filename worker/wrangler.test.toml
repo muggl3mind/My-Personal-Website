@@ -1,0 +1,16 @@
+name = "lovely-chat"
+main = "index.ts"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+# No Text rule for corpus.json here — we let workerd handle the
+# `import ... with { type: 'json' }` assertion natively in tests.
+
+# Workers AI binding — native Cloudflare LLM + embeddings
+[ai]
+binding = "AI"
+
+# KV namespace for rate limits + telemetry counters
+[[kv_namespaces]]
+binding = "RATE_LIMIT"
+id = "756218dca4c14bd0a9316be47462fd06"

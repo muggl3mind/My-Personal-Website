@@ -1,0 +1,41 @@
+---
+import type { Project } from '../data/projects';
+
+export interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const hasVideo = !!project.videoSrc && !!project.posterSrc;
+---
+
+<a
+  href={`/projects/${project.slug}/`}
+  class="group block rule-line border p-5 nolink hover:border-accent dark:hover:border-accent-dark transition-colors"
+  style="border-style:solid"
+>
+  <div class="aspect-video mb-4 overflow-hidden bg-rule dark:bg-rule-dark relative">
+    {hasVideo ? (
+      <video
+        src={project.videoSrc}
+        poster={project.posterSrc}
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        class="w-full h-full object-cover"
+        aria-hidden="true"
+      ></video>
+    ) : (
+      <div class="w-full h-full flex items-center justify-center prose-muted text-xs uppercase tracking-wider p-4 text-center">
+        {project.subtitle}
+      </div>
+    )}
+  </div>
+  <h3 class="text-lg font-semibold mb-1 group-hover:text-accent dark:group-hover:text-accent-dark transition-colors">
+    {project.title}
+  </h3>
+  <p class="text-sm prose-muted mb-3">{project.subtitle}</p>
+  <p class="text-xs font-mono prose-muted">{project.stack}</p>
+</a>

@@ -1,0 +1,163 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../config';
+import SocialIcons from '../components/SocialIcons.astro';
+---
+
+<Base
+  title="Contact"
+  description="Send Lovely Wisdom McInerney a message."
+>
+  <section class="narrow-width">
+    <p class="text-sm font-mono prose-muted mb-4 uppercase tracking-wider">
+      <span class="inline-block w-8 h-px bg-accent dark:bg-accent-dark align-middle mr-2"></span>
+      Get in touch
+    </p>
+    <h1 class="mb-3">Let's talk.</h1>
+    <p class="prose-muted mb-8 text-lg leading-relaxed">
+      Pull up a chair. If you're learning AI and stuck on something,
+      building in finance or AI, or just want to swap notes with someone
+      else figuring it out in public, I'd love to hear from you.
+    </p>
+
+    <div class="mb-12 pb-10 rule-line border-b">
+      <p class="text-sm font-mono prose-muted mb-4 uppercase tracking-wider">
+        Find me on
+      </p>
+      <SocialIcons size="lg" />
+    </div>
+
+    <p class="text-sm font-mono prose-muted mb-4 uppercase tracking-wider">
+      <span class="inline-block w-8 h-px bg-accent dark:bg-accent-dark align-middle mr-2"></span>
+      Or send a message
+    </p>
+
+    <!-- Success state: hidden until the worker confirms the submission. -->
+    <div
+      id="contact-success"
+      hidden
+      class="rule-line border-2 border-accent dark:border-accent-dark p-8 bg-paper dark:bg-paper-dark"
+    >
+      <p class="text-sm font-mono prose-muted mb-3 uppercase tracking-wider">
+        <span class="inline-block w-8 h-px bg-accent dark:bg-accent-dark align-middle mr-2"></span>
+        Message received
+      </p>
+      <h2 class="font-display text-3xl md:text-4xl mt-0 mb-4 leading-tight">
+        Thanks. Got it.
+      </h2>
+      <p class="prose-muted text-lg leading-relaxed">
+        I read these daily and will reply personally within a few days.
+      </p>
+    </div>
+
+    <form id="contact-form" class="space-y-6" novalidate>
+      <div>
+        <label for="name" class="block text-sm font-mono uppercase tracking-wider prose-muted mb-2">
+          Your name
+        </label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          maxlength="120"
+          class="w-full bg-chat-bg dark:bg-chat-bg-dark border rule-line px-4 py-3 outline-none focus:border-accent dark:focus:border-accent-dark"
+        />
+      </div>
+
+      <div>
+        <label for="email" class="block text-sm font-mono uppercase tracking-wider prose-muted mb-2">
+          Your email
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          maxlength="200"
+          autocomplete="email"
+          class="w-full bg-chat-bg dark:bg-chat-bg-dark border rule-line px-4 py-3 outline-none focus:border-accent dark:focus:border-accent-dark"
+        />
+      </div>
+
+      <div>
+        <label for="message" class="block text-sm font-mono uppercase tracking-wider prose-muted mb-2">
+          Message
+        </label>
+        <textarea
+          id="message"
+          name="message"
+          required
+          maxlength="4000"
+          rows="7"
+          class="w-full bg-chat-bg dark:bg-chat-bg-dark border rule-line px-4 py-3 outline-none focus:border-accent dark:focus:border-accent-dark font-sans resize-y"
+        ></textarea>
+      </div>
+
+      <!-- Honeypot field: hidden from humans, bots fill it, worker drops on receive -->
+      <div class="absolute -left-[9999px]" aria-hidden="true">
+        <label for="company">Company (leave blank)</label>
+        <input type="text" id="company" name="company" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <div class="flex items-center gap-6">
+        <button
+          type="submit"
+          id="contact-submit"
+          class="bg-accent dark:bg-accent-dark text-white px-6 py-3 text-base font-semibold hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Send message
+        </button>
+        <span id="contact-status" class="text-sm prose-muted" aria-live="polite"></span>
+      </div>
+    </form>
+
+  </section>
+</Base>
+
+<script>
+  import { site } from '../config';
+
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const status = document.getElementById('contact-status') as HTMLElement;
+  const submit = document.getElementById('contact-submit') as HTMLButtonElement;
+  const success = document.getElementById('contact-success') as HTMLElement;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    status.textContent = 'Sending...';
+    submit.disabled = true;
+
+    const data = new FormData(form);
+    const body = {
+      name: data.get('name') as string,
+      email: data.get('email') as string,
+      message: data.get('message') as string,
+      company: data.get('company') as string,
+    };
+
+    try {
+      const res = await fetch(`${site.workerUrl}/submit`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+
+      if (!res.ok) {
+        const j = await res.json().catch(() => ({ error: 'request failed' }));
+        status.textContent = 'Error: ' + ((j as any).error ?? 'please try again');
+        submit.disabled = false;
+        return;
+      }
+
+      // Hide the form, reveal the success card (which lives outside the
+      // form, so it stays visible after form.hidden = true).
+      form.hidden = true;
+      success.hidden = false;
+      success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch (err) {
+      status.textContent = 'Network error. Please try again in a moment.';
+      submit.disabled = false;
+    }
+  });
+</script>

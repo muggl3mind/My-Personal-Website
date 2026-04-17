@@ -1,0 +1,58 @@
+[
+  {
+    "title": "Are we building AI to check AI to check AI?",
+    "url": "https://medium.com/@lovely.mcinerney/are-we-building-ai-to-check-ai-to-check-ai",
+    "pubDate": "2026-03-20T00:00:00.000Z",
+    "readingTimeMin": 5,
+    "excerpt": "A question I keep getting from accountants who have just seen their first demo of an audit-AI tool: if the model can be wrong, who audits the AI?"
+  },
+  {
+    "title": "Anthropic Released a Finance Plugin",
+    "url": "https://medium.com/@lovely.mcinerney/anthropic-released-a-finance-plugin",
+    "pubDate": "2026-03-05T00:00:00.000Z",
+    "readingTimeMin": 4,
+    "excerpt": "Anthropic just shipped a finance plugin for Claude. Here is what I think it actually unlocks for anyone doing investment accounting."
+  },
+  {
+    "title": "How I Vibe-Coded My Way Into a Beautifully Complex Multi-Agent System (And Why It Kept Failing)",
+    "url": "https://medium.com/@lovely.mcinerney/how-i-vibe-coded-my-way-into-a-beautifully-complex-multi-agent-system",
+    "pubDate": "2026-02-14T00:00:00.000Z",
+    "readingTimeMin": 9,
+    "excerpt": "The honest story of building a multi-agent close system: what worked, what broke, and why I eventually rebuilt the whole thing as Claude skills."
+  },
+  {
+    "title": "My AI-Powered Paint Color Consultant",
+    "url": "https://medium.com/@lovely.mcinerney/my-ai-powered-paint-color-consultant",
+    "pubDate": "2026-01-30T00:00:00.000Z",
+    "readingTimeMin": 5,
+    "excerpt": "The weekend project that taught me more about multi-modal prompting than any tutorial: an agent that picks paint colors for real rooms."
+  },
+  {
+    "title": "Is Your Accounting Workflow Future-Ready?",
+    "url": "https://medium.com/@lovely.mcinerney/is-your-accounting-workflow-future-ready",
+    "pubDate": "2026-01-18T00:00:00.000Z",
+    "readingTimeMin": 6,
+    "excerpt": "A checklist for finance teams to figure out which parts of their close are actually ready to hand to an AI agent, and which parts still need a human."
+  },
+  {
+    "title": "Does my virtual accounting assistant really need PTO?",
+    "url": "https://medium.com/@lovely.mcinerney/does-my-virtual-accounting-assistant-really-need-pto",
+    "pubDate": "2025-12-22T00:00:00.000Z",
+    "readingTimeMin": 5,
+    "excerpt": "A short, slightly-joking piece about the weird emotional territory of delegating to an agent that never sleeps."
+  },
+  {
+    "title": "How I discovered a way to reduce hours of financial document review down to seconds",
+    "url": "https://medium.com/@lovely.mcinerney/how-i-discovered-a-way-to-reduce-hours-of-financial-document-review-down-to-seconds",
+    "pubDate": "2025-12-05T00:00:00.000Z",
+    "readingTimeMin": 6,
+    "excerpt": "The first project where I saw the actual speed-up: document review that used to take an afternoon now takes thirty seconds, and what that taught me."
+  },
+  {
+    "title": "My AccounTech Buddy",
+    "url": "https://medium.com/@lovely.mcinerney/my-accountech-buddy",
+    "pubDate": "2025-11-15T00:00:00.000Z",
+    "readingTimeMin": 7,
+    "excerpt": "Introducing the first real prototype: a multi-agent system for month-end close, why I built it, and what I hope it proves."
+  }
+]

@@ -1,0 +1,162 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../config';
+import SocialIcons from '../components/SocialIcons.astro';
+---
+
+<Base title="About" description="Lovely Wisdom McInerney — accountant turned AI builder.">
+  <section class="content-width mb-16">
+    <p class="text-sm font-mono prose-muted mb-4 uppercase tracking-wider">
+      <span class="inline-block w-8 h-px bg-accent dark:bg-accent-dark align-middle mr-2"></span>
+      About
+    </p>
+
+    <div class="grid gap-10 md:gap-16 md:grid-cols-5 items-start">
+      <!-- Photo -->
+      <div class="md:col-span-2">
+        <img
+          src="/images/headshot.jpeg"
+          alt="Lovely Wisdom McInerney"
+          class="w-full max-w-xs md:max-w-none rule-line border"
+          loading="eager"
+          decoding="async"
+        />
+        <div class="mt-6">
+          <SocialIcons size="lg" />
+        </div>
+      </div>
+
+      <!-- Intro -->
+      <div class="md:col-span-3">
+        <h1 class="mb-6">Lovely Wisdom McInerney</h1>
+        <p class="text-xl prose-muted leading-relaxed mb-6">
+          Accountant turned AI builder. 11 years in financial services
+          audit and fund administration across four countries, now
+          building AI systems that automate the workflows I spent a
+          decade doing manually.
+        </p>
+        <p class="prose-muted leading-relaxed mb-6">
+          I started in public accounting in the Philippines, moved to
+          New York for EY, then Amsterdam for KPMG, and most recently
+          ran fund administration out of Chicago. Along the way I
+          managed hedge fund audits, PE valuations, and multi-entity
+          close processes. In early 2025 I stepped away to build
+          full-time.
+        </p>
+        <p class="prose-muted leading-relaxed">
+          Everything I'm building is on my
+          <a href="/portfolio">work page</a>, and I write about the
+          process on <a href={site.social.medium} rel="external">Medium</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="content-width mb-24" aria-labelledby="timeline-heading">
+    <h2 id="timeline-heading" class="font-display text-3xl md:text-4xl mt-16 mb-12 leading-tight">
+      Career path.
+    </h2>
+
+    <div class="relative pl-8 md:pl-10 border-l-2 border-accent dark:border-accent-dark space-y-12">
+
+      <!-- Now -->
+      <div class="relative">
+        <div class="absolute -left-[calc(2rem+5px)] md:-left-[calc(2.5rem+5px)] top-1 w-3 h-3 rounded-full bg-accent dark:bg-accent-dark"></div>
+        <p class="text-xs font-mono uppercase tracking-wider text-accent dark:text-accent-dark mb-2">
+          April 2025 — Present
+        </p>
+        <h3 class="text-xl font-display mb-2">Building AI systems full-time</h3>
+        <p class="prose-muted text-sm leading-relaxed">
+          Stepped away from fund administration to build. Multi-agent
+          accounting systems, career automation pipelines, audit tools,
+          Claude Code skills. Open source, documented, shipped.
+          <a href="/portfolio" class="text-accent dark:text-accent-dark font-semibold">See the work →</a>
+        </p>
+      </div>
+
+      <!-- Standish -->
+      <div class="relative">
+        <div class="absolute -left-[calc(2rem+5px)] md:-left-[calc(2.5rem+5px)] top-1 w-3 h-3 rounded-full bg-rule dark:bg-rule-dark border-2 border-accent dark:border-accent-dark"></div>
+        <p class="text-xs font-mono uppercase tracking-wider prose-muted mb-2">
+          November 2022 — January 2025
+        </p>
+        <h3 class="text-xl font-display mb-1">Engagement Manager, Fund Administration</h3>
+        <p class="text-sm font-semibold prose-muted mb-2">Standish Management · Chicago (Remote)</p>
+        <p class="prose-muted text-sm leading-relaxed">
+          End-to-end fund administration across a portfolio of private
+          equity funds. Close, reconciliations, multi-entity accounting,
+          investor reporting. Led first-time audit coordination for
+          newly onboarded funds.
+        </p>
+      </div>
+
+      <!-- KPMG -->
+      <div class="relative">
+        <div class="absolute -left-[calc(2rem+5px)] md:-left-[calc(2.5rem+5px)] top-1 w-3 h-3 rounded-full bg-rule dark:bg-rule-dark border-2 border-accent dark:border-accent-dark"></div>
+        <p class="text-xs font-mono uppercase tracking-wider prose-muted mb-2">
+          September 2019 — March 2022
+        </p>
+        <h3 class="text-xl font-display mb-1">Audit Manager, Financial Services</h3>
+        <p class="text-sm font-semibold prose-muted mb-2">KPMG · Amsterdam</p>
+        <p class="prose-muted text-sm leading-relaxed">
+          Directed valuation review and multi-jurisdiction component
+          audits across Europe. Led comprehensive audit engagements
+          for asset management operations across diverse investment
+          vehicles under Dutch GAAP and US GAAP.
+        </p>
+      </div>
+
+      <!-- EY -->
+      <div class="relative">
+        <div class="absolute -left-[calc(2rem+5px)] md:-left-[calc(2.5rem+5px)] top-1 w-3 h-3 rounded-full bg-rule dark:bg-rule-dark border-2 border-accent dark:border-accent-dark"></div>
+        <p class="text-xs font-mono uppercase tracking-wider prose-muted mb-2">
+          November 2011 — April 2018
+        </p>
+        <h3 class="text-xl font-display mb-1">Audit Manager, Financial Services</h3>
+        <p class="text-sm font-semibold prose-muted mb-2">Ernst & Young · Philippines, Asia Pacific, and New York</p>
+        <p class="prose-muted text-sm leading-relaxed">
+          Started in the Philippines and grew into cross-border audit
+          delivery across Asia Pacific before moving to New York.
+          Managed multiple hedge fund audit engagements. Resolved
+          complex technical accounting issues through original
+          research. Designed firm-wide training programs that measurably
+          improved team efficiency. Led IFRS and US GAAP engagements
+          spanning investment management, banking, and retail across
+          multiple countries.
+        </p>
+      </div>
+
+      <!-- Education -->
+      <div class="relative">
+        <div class="absolute -left-[calc(2rem+5px)] md:-left-[calc(2.5rem+5px)] top-1 w-3 h-3 rounded-full bg-rule dark:bg-rule-dark border-2 border-accent dark:border-accent-dark"></div>
+        <p class="text-xs font-mono uppercase tracking-wider prose-muted mb-2">
+          2006 — 2011
+        </p>
+        <h3 class="text-xl font-display mb-1">BS Accounting, Cum Laude</h3>
+        <p class="text-sm font-semibold prose-muted mb-2">University of San Carlos · Cebu, Philippines</p>
+        <p class="prose-muted text-sm leading-relaxed">
+          Licensed Certified Public Accountant (Philippine Board of Accountancy).
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="content-width mb-8">
+    <div class="rule-line border-2 border-accent dark:border-accent-dark p-8 md:p-12 bg-paper dark:bg-paper-dark">
+      <h2 class="font-display text-3xl md:text-4xl mt-0 mb-4 leading-tight">Want to work together?</h2>
+      <p class="prose-muted mb-6 max-w-[560px] leading-relaxed">
+        If you're building AI products and you need someone who has actually
+        shipped finance workflows, I'd love to hear what you're working on.
+      </p>
+      <a
+        href="/contact"
+        class="inline-block bg-accent dark:bg-accent-dark text-white px-8 py-4 text-lg font-semibold nolink hover:opacity-90 transition-opacity"
+      >
+        Send me a message →
+      </a>
+    </div>
+  </section>
+</Base>

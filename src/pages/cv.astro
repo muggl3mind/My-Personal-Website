@@ -1,0 +1,135 @@
+---
+import Base from '../layouts/Base.astro';
+import { cv } from '../data/cv';
+import { site } from '../config';
+
+// Scaffold page. Fill src/data/cv.ts, then add a nav link in
+// src/layouts/Base.astro (Work · Writing · CV · Contact) to publish.
+const isEmpty = cv.roles.length === 0 && cv.education.length === 0;
+---
+
+<Base title="CV" description={`${site.author.name} — curriculum vitae.`}>
+  <section class="content-width mb-16">
+    <p class="text-sm font-mono prose-muted mb-4 uppercase tracking-wider">
+      <span class="inline-block w-8 h-px bg-accent dark:bg-accent-dark align-middle mr-2"></span>
+      CV
+    </p>
+    <h1 class="mb-6">{cv.headline || 'Curriculum Vitae'}</h1>
+    {cv.summary && (
+      <p class="text-xl prose-muted leading-relaxed max-w-[640px] mb-8">
+        {cv.summary}
+      </p>
+    )}
+
+    <div class="flex gap-5 text-sm">
+      <a href="/contact" class="font-semibold text-accent dark:text-accent-dark">Get in touch →</a>
+      {cv.pdfPath && (
+        <a href={cv.pdfPath} rel="external">Download PDF →</a>
+      )}
+    </div>
+  </section>
+
+  {isEmpty && (
+    <section class="content-width mb-16">
+      <div class="rule-line border p-6 bg-tinted dark:bg-tinted-dark">
+        <p class="text-sm font-mono prose-muted mb-2">SCAFFOLD</p>
+        <p class="prose-muted text-sm leading-relaxed">
+          This page renders from <code>src/data/cv.ts</code>. Fill in the roles,
+          education, credentials, and skills arrays, then add a <code>/cv</code>
+          link to the nav in <code>src/layouts/Base.astro</code> to publish.
+        </p>
+      </div>
+    </section>
+  )}
+
+  {cv.roles.length > 0 && (
+    <section class="content-width mb-20" aria-labelledby="experience-heading">
+      <h2 id="experience-heading" class="font-display text-3xl md:text-4xl mt-0 mb-10 leading-tight">
+        Experience
+      </h2>
+      <div class="space-y-12">
+        {cv.roles.map((role) => (
+          <article class="rule-line border-b pb-10 last:border-b-0">
+            <p class="text-xs font-mono uppercase tracking-wider prose-muted mb-2">
+              {role.start} — {role.end}
+              {role.location && <span class="mx-2">·</span>}
+              {role.location}
+            </p>
+            <h3 class="text-xl md:text-2xl font-display mb-1 leading-tight">
+              {role.title}
+            </h3>
+            <p class="text-sm font-semibold prose-muted mb-4">{role.company}</p>
+            <p class="prose-muted mb-4 leading-relaxed text-sm">{role.summary}</p>
+            {role.highlights.length > 0 && (
+              <ul class="space-y-2 text-sm prose-muted list-disc pl-5">
+                {role.highlights.map((h) => <li>{h}</li>)}
+              </ul>
+            )}
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {cv.education.length > 0 && (
+    <section class="content-width mb-20" aria-labelledby="education-heading">
+      <h2 id="education-heading" class="font-display text-3xl md:text-4xl mt-0 mb-10 leading-tight">
+        Education
+      </h2>
+      <div class="space-y-6">
+        {cv.education.map((ed) => (
+          <div>
+            <h3 class="text-lg font-semibold mb-1">{ed.credential}</h3>
+            <p class="text-sm prose-muted">
+              {ed.institution}
+              {(ed.start || ed.end) && <span class="mx-2">·</span>}
+              {ed.start}{ed.start && ed.end && ' — '}{ed.end}
+            </p>
+            {ed.notes && <p class="text-sm prose-muted mt-2">{ed.notes}</p>}
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {cv.credentials.length > 0 && (
+    <section class="content-width mb-20" aria-labelledby="credentials-heading">
+      <h2 id="credentials-heading" class="font-display text-3xl md:text-4xl mt-0 mb-10 leading-tight">
+        Credentials
+      </h2>
+      <ul class="space-y-3">
+        {cv.credentials.map((c) => (
+          <li class="text-sm">
+            <span class="font-semibold">{c.name}</span>
+            <span class="prose-muted"> · {c.issuer}</span>
+            {c.year && <span class="prose-muted"> · {c.year}</span>}
+            {c.url && (
+              <>
+                <span class="prose-muted"> · </span>
+                <a href={c.url} rel="external">verify →</a>
+              </>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {cv.skills.length > 0 && (
+    <section class="content-width mb-20" aria-labelledby="skills-heading">
+      <h2 id="skills-heading" class="font-display text-3xl md:text-4xl mt-0 mb-10 leading-tight">
+        Skills
+      </h2>
+      <div class="grid gap-8 md:grid-cols-2">
+        {cv.skills.map((group) => (
+          <div>
+            <h3 class="text-sm font-mono uppercase tracking-wider prose-muted mb-3">
+              {group.category}
+            </h3>
+            <p class="text-sm leading-relaxed">{group.items.join(' · ')}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+</Base>

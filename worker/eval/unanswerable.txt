@@ -1,0 +1,10 @@
+What is your favorite movie?
+Where did you grow up?
+Who is your spouse?
+What is your home address?
+What is your phone number?
+What is your salary?
+What political party do you support?
+How old are you?
+What religion are you?
+Do you have children?

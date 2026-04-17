@@ -1,0 +1,151 @@
+---
+import '../styles/global.css';
+import { site } from '../config';
+import SocialIcons from '../components/SocialIcons.astro';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  path?: string; // current path, used for telemetry pixel
+  jsonLd?: unknown; // optional JSON-LD schema payload
+}
+
+const {
+  title,
+  description = site.description,
+  ogImage = '/og-default.png',
+  path = Astro.url.pathname,
+  jsonLd,
+} = Astro.props;
+
+const pageTitle = title ? `${title} · ${site.title}` : site.title;
+const canonical = new URL(path, site.url).toString();
+const workerUrl = site.workerUrl;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- OpenGraph -->
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content={new URL(ogImage, site.url).toString()} />
+    <meta property="og:site_name" content={site.title} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(ogImage, site.url).toString()} />
+
+    <!-- Cloudflare Web Analytics: free, no cookies, no banner needed.
+         The token is set in src/config.ts once the site is added in the
+         Cloudflare dashboard. If empty, nothing is loaded. -->
+    {site.cloudflareBeaconToken && (
+      <script
+        is:inline
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={`{"token": "${site.cloudflareBeaconToken}"}`}
+      ></script>
+    )}
+
+    <!-- Respect prefers-reduced-motion: pause all autoplay videos and
+         strip the attribute so they stay paused. Inline + early so it
+         catches videos as the DOM parses. -->
+    <script is:inline>
+      (function () {
+        if (!window.matchMedia) return;
+        var mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+        var pauseAll = function () {
+          var vids = document.querySelectorAll('video');
+          for (var i = 0; i < vids.length; i++) {
+            vids[i].removeAttribute('autoplay');
+            try { vids[i].pause(); } catch (e) {}
+          }
+        };
+        if (mq.matches) {
+          document.addEventListener('loadedmetadata', function (e) {
+            var t = e.target;
+            if (t && t.tagName === 'VIDEO') {
+              t.removeAttribute('autoplay');
+              try { t.pause(); } catch (err) {}
+            }
+          }, true);
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', pauseAll);
+          } else {
+            pauseAll();
+          }
+        }
+        mq.addEventListener && mq.addEventListener('change', function (e) {
+          if (e.matches) pauseAll();
+        });
+      })();
+    </script>
+
+    {jsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    )}
+  </head>
+
+  <body>
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:bg-paper focus:dark:bg-paper-dark focus:p-2 focus:rule-line focus:border focus:z-50">Skip to content</a>
+
+    <!-- Accent bar at top of every page -->
+    <div class="h-1 bg-accent dark:bg-accent-dark"></div>
+
+    <header class="content-width pt-10 pb-16">
+      <nav class="flex items-center justify-between text-sm">
+        <a href="/" class="font-semibold text-base nolink">
+          <span class="inline-block w-2 h-2 rounded-full bg-accent dark:bg-accent-dark mr-2 align-middle"></span>{site.title}
+        </a>
+        <div class="flex gap-5 md:gap-6 items-center">
+          <a href="/about">About</a>
+          <a href="/portfolio">Work</a>
+          <a href="/writing">Writing</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="content-width py-10 mt-16 rule-line border-t">
+      <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 sm:items-baseline sm:justify-between text-xs font-mono prose-muted">
+        <div>© 2026 Lovely Wisdom McInerney · built with Astro + Cloudflare Workers AI</div>
+        <div class="flex items-center gap-4">
+          <a href="/contact">Contact</a>
+          <SocialIcons size="sm" />
+        </div>
+      </div>
+    </footer>
+
+    <!-- Telemetry pixel, 1x1 GIF fired from the Cloudflare Worker.
+         No cookies, no JS, no visitor identity. Just a path counter. -->
+    <img
+      src={`${workerUrl}/pixel?p=${encodeURIComponent(path)}`}
+      width="1"
+      height="1"
+      alt=""
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+      style="position:absolute;left:-9999px"
+    />
+  </body>
+</html>

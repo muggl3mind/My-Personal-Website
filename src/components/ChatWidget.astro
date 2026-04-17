@@ -1,0 +1,98 @@
+---
+import { site } from '../config';
+
+const suggestedChips = [
+  { id: 'workflows', text: 'What workflows have you automated?' },
+  { id: 'hallucination', text: "How do you build agents that don't hallucinate?" },
+  { id: 'why-leave', text: 'Why did you leave accounting to build AI?' },
+  { id: 'multi-agent', text: 'What was the hardest part of the multi-agent build?' },
+];
+---
+
+<div class="chat-widget">
+
+  <form
+    id="chat-form"
+    class="relative"
+    action={`${site.workerUrl}/chat`}
+    method="POST"
+  >
+    <label for="chat-input" class="sr-only">Ask a question about my work</label>
+    <div class="flex items-stretch bg-chat-bg dark:bg-chat-bg-dark border-2 border-ink dark:border-ink-dark focus-within:border-accent dark:focus-within:border-accent-dark shadow-[6px_6px_0_0_rgba(10,10,10,0.12)] dark:shadow-[6px_6px_0_0_rgba(45,212,191,0.2)] transition-colors">
+      <input
+        id="chat-input"
+        name="question"
+        type="text"
+        required
+        maxlength="500"
+        autocomplete="off"
+        placeholder="e.g. What have you built with Claude skills?"
+        class="flex-1 bg-transparent px-6 py-6 text-lg md:text-xl outline-none placeholder:prose-muted"
+      />
+      <button
+        type="submit"
+        class="px-6 md:px-8 bg-accent dark:bg-accent-dark text-white font-semibold hover:opacity-90 transition-opacity"
+        aria-label="Send message"
+      >
+        Ask →
+      </button>
+    </div>
+  </form>
+
+  <div class="mt-6 flex flex-wrap gap-2" id="chat-chips" aria-label="Suggested questions">
+    <span class="text-xs font-mono prose-muted uppercase tracking-wider mr-2 self-center">Try:</span>
+    {suggestedChips.map((chip) => (
+      <button
+        type="button"
+        class="text-sm rule-line border px-3 py-1.5 prose-muted hover:text-ink dark:hover:text-ink-dark hover:border-accent dark:hover:border-accent-dark transition-colors bg-paper dark:bg-paper-dark"
+        data-chip-id={chip.id}
+        data-chip-text={chip.text}
+      >
+        {chip.text}
+      </button>
+    ))}
+  </div>
+
+  <div id="chat-pane" class="mt-10 hidden space-y-6" aria-live="polite"></div>
+
+  <div class="mt-6 flex items-center justify-between gap-4 flex-wrap">
+    <button
+      id="chat-reset"
+      type="button"
+      hidden
+      class="text-xs font-mono uppercase tracking-wider prose-muted hover:text-ink dark:hover:text-ink-dark transition-colors"
+    >
+      ← New conversation
+    </button>
+    <span
+      id="chat-counter"
+      hidden
+      class="text-xs font-mono prose-muted"
+      aria-live="polite"
+    ></span>
+  </div>
+
+  <p class="mt-4 text-xs font-mono prose-muted opacity-60">
+    Powered by Llama 3.3 on Cloudflare Workers AI
+  </p>
+
+  <noscript>
+    <div class="mt-8 rule-line border p-5 text-sm prose-muted">
+      The chat needs JavaScript. You can also
+      <a href="/contact" class="text-ink dark:text-ink-dark">send me a message</a>
+      or browse my
+      <a href={site.social.github} class="text-ink dark:text-ink-dark">GitHub</a>
+      and
+      <a href={site.social.medium} class="text-ink dark:text-ink-dark">writing</a>.
+    </div>
+  </noscript>
+</div>
+
+<script>
+  import { initChat } from '../scripts/chat-widget';
+  if ('requestIdleCallback' in window) {
+    (window as any).requestIdleCallback(() => initChat(), { timeout: 2000 });
+  } else {
+    setTimeout(() => initChat(), 0);
+  }
+</script>

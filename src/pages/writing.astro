@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import { fetchMediumPosts, formatDate } from '../lib/medium';
+
+const posts = await fetchMediumPosts();
+---
+
+<Base title="Writing" description="Blog posts, essays, and notes from Lovely Wisdom McInerney.">
+  <section class="narrow-width">
+    <h1 class="mb-3">Writing</h1>
+    <p class="prose-muted mb-12">
+      Essays on AI for finance, multi-agent systems, Claude skills, and the
+      strange territory of automating a job you used to do yourself. Hosted on
+      <a href="https://medium.com/@lovely.mcinerney">Medium</a>.
+    </p>
+
+    <ul class="space-y-10">
+      {posts.map((post) => (
+        <li class="rule-line border-b pb-10 last:border-b-0">
+          <a href={post.url} rel="external" class="flex flex-col sm:flex-row gap-6 nolink group">
+            {post.imageUrl && (
+              <img
+                src={post.imageUrl}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                class="w-full sm:w-48 h-40 sm:h-32 object-cover shrink-0 rule-line border"
+              />
+            )}
+            <div class="flex-1 min-w-0">
+              <h2 class="text-xl font-semibold mt-0 mb-2 group-hover:text-accent dark:group-hover:text-accent-dark transition-colors">
+                {post.title}
+              </h2>
+              <p class="prose-muted mb-2">{post.excerpt}</p>
+              <div class="text-xs font-mono prose-muted flex gap-3 flex-wrap">
+                <span>{formatDate(post.pubDate)}</span>
+                <span>·</span>
+                <span>{post.readingTimeMin} min read</span>
+                <span>·</span>
+                <span>Read on Medium →</span>
+              </div>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Base>

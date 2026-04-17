@@ -1,0 +1,386 @@
+---
+/**
+ * Hand-rolled SVG architecture diagrams for each project.
+ * Styles are global (in global.css under `.diag`) so Astro's CSS scoping
+ * doesn't strip them from SVG children.
+ */
+export interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+---
+
+{slug === 'accountech-buddy' && (
+  <figure class="my-12 diag">
+    <svg viewBox="0 0 920 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AccounTech Buddy architecture showing the root Accounting Coordinator agent dispatching to one of three branches: Session Management tools, a Transaction Categorization sequential workflow, or a Journal Entry Generation sequential workflow." class="w-full h-auto">
+      {/* Root coordinator */}
+      <rect x="340" y="20" width="240" height="60" class="node-box root" rx="4" />
+      <text x="460" y="48" text-anchor="middle" class="node-text root-text">Root Agent</text>
+      <text x="460" y="68" text-anchor="middle" class="node-sub" style="fill:#D9F3F0">Accounting Coordinator</text>
+
+      <path d="M 460 80 L 460 105" class="flow-line" />
+
+      {/* Decision diamond */}
+      <polygon points="460,105 560,155 460,205 360,155" class="node-box" style="fill:#FFFFFF" />
+      <text x="460" y="150" text-anchor="middle" class="node-text" style="font-size:13px">Analyze</text>
+      <text x="460" y="168" text-anchor="middle" class="node-text" style="font-size:13px">user request</text>
+
+      {/* Branch lines down to three columns */}
+      <path d="M 360 155 L 150 230" class="flow-line" />
+      <path d="M 460 205 L 460 230" class="flow-line" />
+      <path d="M 560 155 L 770 230" class="flow-line" />
+
+      {/* ---- BRANCH 1: Session Management ---- */}
+      <rect x="40" y="230" width="220" height="50" class="node-box" rx="4" style="fill:#FAEEEE; stroke:#B45309" />
+      <text x="150" y="252" text-anchor="middle" class="node-text">Session Management</text>
+      <text x="150" y="270" text-anchor="middle" class="node-sub">tools</text>
+
+      <path d="M 150 280 L 150 305" class="flow-line" />
+      <rect x="40" y="305" width="220" height="45" class="node-box" rx="4" />
+      <text x="150" y="330" text-anchor="middle" class="node-sub" style="font-size:12px">update categorization</text>
+      <path d="M 150 350 L 150 370" class="flow-line" />
+      <rect x="40" y="370" width="220" height="45" class="node-box" rx="4" />
+      <text x="150" y="395" text-anchor="middle" class="node-sub" style="font-size:12px">load prior results</text>
+
+      {/* ---- BRANCH 2: Transaction Categorization ---- */}
+      <rect x="350" y="230" width="220" height="50" class="node-box" rx="4" style="fill:#FAEEEE; stroke:#B45309" />
+      <text x="460" y="252" text-anchor="middle" class="node-text">Transaction</text>
+      <text x="460" y="270" text-anchor="middle" class="node-text">Categorization</text>
+
+      <path d="M 460 280 L 460 305" class="flow-line" />
+
+      <rect x="360" y="305" width="200" height="55" class="node-box" rx="4" style="fill:#F5E6FF; stroke:#6B46C1" />
+      <text x="460" y="328" text-anchor="middle" class="node-sub" style="font-size:11px; letter-spacing:0.5px">SEQUENTIAL WORKFLOW</text>
+      <text x="460" y="347" text-anchor="middle" class="node-sub" style="font-size:11px">3 stages</text>
+
+      {/* Stage boxes */}
+      <path d="M 460 360 L 460 380" class="flow-line" />
+      <rect x="360" y="380" width="200" height="55" class="node-box" rx="4" />
+      <text x="460" y="402" text-anchor="middle" class="node-text" style="font-size:13px">Initialization</text>
+      <text x="460" y="420" text-anchor="middle" class="node-sub">load CSV, validate, chunk</text>
+
+      <path d="M 460 435 L 460 455" class="flow-line" />
+      <rect x="360" y="455" width="200" height="55" class="node-box" rx="4" />
+      <text x="460" y="477" text-anchor="middle" class="node-text" style="font-size:13px">Parallel Processing</text>
+      <text x="460" y="495" text-anchor="middle" class="node-sub">AI categorizes each chunk</text>
+
+      <path d="M 460 510 L 460 530" class="flow-line" />
+      <rect x="360" y="530" width="200" height="55" class="node-box" rx="4" />
+      <text x="460" y="552" text-anchor="middle" class="node-text" style="font-size:13px">Filtering</text>
+      <text x="460" y="570" text-anchor="middle" class="node-sub">flag low-confidence</text>
+
+      <path d="M 460 585 L 460 615" class="flow-line gold" />
+      <ellipse cx="460" cy="640" rx="110" ry="28" class="node-box output" style="stroke:#0F766E; fill:#0F766E" />
+      <text x="460" y="638" text-anchor="middle" class="node-text output-text" style="font-size:13px">categorized</text>
+      <text x="460" y="656" text-anchor="middle" class="node-sub" style="fill:#D9F3F0">transactions</text>
+
+      {/* ---- BRANCH 3: Journal Entry Generation ---- */}
+      <rect x="660" y="230" width="220" height="50" class="node-box" rx="4" style="fill:#FAEEEE; stroke:#B45309" />
+      <text x="770" y="252" text-anchor="middle" class="node-text">Journal Entry</text>
+      <text x="770" y="270" text-anchor="middle" class="node-text">Generation</text>
+
+      <path d="M 770 280 L 770 305" class="flow-line" />
+
+      <rect x="670" y="305" width="200" height="55" class="node-box" rx="4" style="fill:#F5E6FF; stroke:#6B46C1" />
+      <text x="770" y="328" text-anchor="middle" class="node-sub" style="font-size:11px; letter-spacing:0.5px">SEQUENTIAL WORKFLOW</text>
+      <text x="770" y="347" text-anchor="middle" class="node-sub" style="font-size:11px">3 stages</text>
+
+      <path d="M 770 360 L 770 380" class="flow-line" />
+      <rect x="670" y="380" width="200" height="55" class="node-box" rx="4" />
+      <text x="770" y="402" text-anchor="middle" class="node-text" style="font-size:13px">Initialization</text>
+      <text x="770" y="420" text-anchor="middle" class="node-sub">load prior session</text>
+
+      <path d="M 770 435 L 770 455" class="flow-line" />
+      <rect x="670" y="455" width="200" height="55" class="node-box" rx="4" />
+      <text x="770" y="477" text-anchor="middle" class="node-text" style="font-size:13px">Processing</text>
+      <text x="770" y="495" text-anchor="middle" class="node-sub">balanced double-entry</text>
+
+      <path d="M 770 510 L 770 530" class="flow-line" />
+      <rect x="670" y="530" width="200" height="55" class="node-box" rx="4" />
+      <text x="770" y="552" text-anchor="middle" class="node-text" style="font-size:13px">Output</text>
+      <text x="770" y="570" text-anchor="middle" class="node-sub">format + final report</text>
+
+      <path d="M 770 585 L 770 615" class="flow-line gold" />
+      <ellipse cx="770" cy="640" rx="110" ry="28" class="node-box output" style="stroke:#0F766E; fill:#0F766E" />
+      <text x="770" y="638" text-anchor="middle" class="node-text output-text" style="font-size:13px">journal entries</text>
+      <text x="770" y="656" text-anchor="middle" class="node-sub" style="fill:#D9F3F0">period close</text>
+    </svg>
+    <figcaption class="text-sm prose-muted text-center mt-4 font-mono leading-relaxed max-w-[640px] mx-auto">
+      The root coordinator reads the request and dispatches to one of three branches. Each branch runs deterministically to its own output, so the audit trail stays clean.
+    </figcaption>
+  </figure>
+)}
+
+{slug === 'financial-reporting-skills' && (
+  <figure class="my-12 diag">
+    <svg viewBox="0 0 880 580" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Anatomy of a Claude Skill, contrasted with a multi-agent system" class="w-full h-auto">
+      {/* Top: user invocation */}
+      <rect x="320" y="20" width="240" height="60" class="node-box center" rx="4" />
+      <text x="440" y="48" text-anchor="middle" class="node-text center-text">/fixed-assets</text>
+      <text x="440" y="68" text-anchor="middle" class="node-sub" style="fill:#F5D9A8">user types in Claude Code</text>
+
+      <path d="M 440 80 L 440 110" class="flow-line gold" />
+
+      {/* Middle: Claude Code reads the skill */}
+      <rect x="280" y="110" width="320" height="55" class="node-box root" rx="4" />
+      <text x="440" y="138" text-anchor="middle" class="node-text root-text">Claude Code agent</text>
+      <text x="440" y="156" text-anchor="middle" class="node-sub" style="fill:#D9F3F0">reads the skill, runs the steps</text>
+
+      <path d="M 440 165 L 440 195" class="flow-line gold" />
+
+      {/* The skill anatomy box */}
+      <rect x="60" y="195" width="760" height="280" class="node-box" rx="6" style="stroke-dasharray:4 3" />
+      <text x="440" y="220" text-anchor="middle" class="node-sub" style="font-size:13px; letter-spacing:1px">.claude/skills/fixed-assets/</text>
+
+      {/* SKILL.md */}
+      <rect x="90" y="240" width="220" height="105" class="node-box leaf" rx="4" />
+      <text x="200" y="265" text-anchor="middle" class="node-text">SKILL.md</text>
+      <text x="200" y="285" text-anchor="middle" class="node-sub">plain-english instructions</text>
+      <text x="200" y="301" text-anchor="middle" class="node-sub">when to capitalize</text>
+      <text x="200" y="316" text-anchor="middle" class="node-sub">how to depreciate</text>
+      <text x="200" y="331" text-anchor="middle" class="node-sub">disposal rules + journal map</text>
+
+      {/* references/ */}
+      <rect x="335" y="240" width="210" height="105" class="node-box" rx="4" />
+      <text x="440" y="265" text-anchor="middle" class="node-text">references/</text>
+      <text x="440" y="285" text-anchor="middle" class="node-sub">account mappings</text>
+      <text x="440" y="301" text-anchor="middle" class="node-sub">useful-life tables</text>
+      <text x="440" y="316" text-anchor="middle" class="node-sub">depreciation conventions</text>
+      <text x="440" y="331" text-anchor="middle" class="node-sub">policy docs</text>
+
+      {/* scripts/ */}
+      <rect x="570" y="240" width="220" height="105" class="node-box python" rx="4" />
+      <text x="680" y="265" text-anchor="middle" class="node-text">scripts/ (python)</text>
+      <text x="680" y="285" text-anchor="middle" class="node-sub">capitalize.py</text>
+      <text x="680" y="301" text-anchor="middle" class="node-sub">recalc.py (depreciation)</text>
+      <text x="680" y="316" text-anchor="middle" class="node-sub">dispose.py</text>
+      <text x="680" y="331" text-anchor="middle" class="node-sub">generate_journal.py</text>
+
+      {/* shared lib */}
+      <rect x="200" y="370" width="480" height="80" class="node-box" rx="4" />
+      <text x="440" y="395" text-anchor="middle" class="node-text">../../lib/ (shared with every skill)</text>
+      <text x="440" y="415" text-anchor="middle" class="node-sub">accounts.py (Chart of Accounts, single source of truth)</text>
+      <text x="440" y="431" text-anchor="middle" class="node-sub">utils.py · xlsx_styles.py</text>
+
+      {/* outputs */}
+      <path d="M 440 475 L 440 510" class="flow-line gold" />
+      <rect x="240" y="510" width="180" height="55" class="node-box output" rx="4" />
+      <text x="330" y="535" text-anchor="middle" class="node-text output-text">CSV</text>
+      <text x="330" y="552" text-anchor="middle" class="node-sub" style="fill:#D9F3F0">accounting software import</text>
+
+      <rect x="460" y="510" width="180" height="55" class="node-box output" rx="4" />
+      <text x="550" y="535" text-anchor="middle" class="node-text output-text">XLSX</text>
+      <text x="550" y="552" text-anchor="middle" class="node-sub" style="fill:#D9F3F0">live Excel formulas, auditable</text>
+
+      <path d="M 440 475 L 330 510" class="flow-line gold" style="opacity:0.7" />
+      <path d="M 440 475 L 550 510" class="flow-line gold" style="opacity:0.7" />
+    </svg>
+    <figcaption class="text-sm prose-muted text-center mt-4 font-mono leading-relaxed max-w-[640px] mx-auto">
+      A skill is just files and instructions. The agent reads SKILL.md to know what to do, calls the Python scripts to do the math, and pulls policies from references/. No orchestrator, no sub-agents, no inter-agent state. The whole point is that the rules live in plain English, where you can edit them.
+    </figcaption>
+  </figure>
+)}
+
+{slug === 'career-manager' && (
+  <>
+    {/* Skill architecture: 4 core skills prominent, onboarding + evals as supporting infrastructure */}
+    <figure class="my-12 diag">
+      <svg viewBox="0 0 820 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Career Manager skill architecture" class="w-full h-auto">
+        <rect x="320" y="170" width="180" height="80" class="node-box root" rx="4" />
+        <text x="410" y="200" text-anchor="middle" class="node-text root-text">Claude Code</text>
+        <text x="410" y="220" text-anchor="middle" class="node-text root-text">(router)</text>
+        <text x="410" y="240" text-anchor="middle" class="node-sub" style="fill:#D9F3F0">natural language</text>
+
+        {/* 4 core skills around the router */}
+        <rect x="20" y="70" width="200" height="85" class="node-box" rx="4" />
+        <text x="120" y="95" text-anchor="middle" class="node-text">job-search</text>
+        <text x="120" y="115" text-anchor="middle" class="node-sub">discover + score companies</text>
+        <text x="120" y="132" text-anchor="middle" class="node-sub">3-phase pipeline</text>
+        <text x="120" y="147" text-anchor="middle" class="node-sub">parallel sub-agents</text>
+
+        <rect x="600" y="70" width="200" height="85" class="node-box" rx="4" />
+        <text x="700" y="95" text-anchor="middle" class="node-text">company-research</text>
+        <text x="700" y="115" text-anchor="middle" class="node-sub">deep dossier per company</text>
+        <text x="700" y="132" text-anchor="middle" class="node-sub">signals. fit. risks.</text>
+
+        <rect x="20" y="260" width="200" height="85" class="node-box" rx="4" />
+        <text x="120" y="285" text-anchor="middle" class="node-text">cv-tailor</text>
+        <text x="120" y="305" text-anchor="middle" class="node-sub">per-role resume + cover</text>
+        <text x="120" y="322" text-anchor="middle" class="node-sub">python prep. claude analysis.</text>
+        <text x="120" y="337" text-anchor="middle" class="node-sub">python apply</text>
+
+        <rect x="600" y="260" width="200" height="85" class="node-box" rx="4" />
+        <text x="700" y="285" text-anchor="middle" class="node-text">job-tracker</text>
+        <text x="700" y="305" text-anchor="middle" class="node-sub">applications.csv</text>
+        <text x="700" y="322" text-anchor="middle" class="node-sub">status. follow-ups.</text>
+        <text x="700" y="337" text-anchor="middle" class="node-sub">pipeline reports</text>
+
+        {/* onboarding skill sits centered below the router as the entry-point skill */}
+        <rect x="310" y="395" width="200" height="50" class="node-box" rx="4" />
+        <text x="410" y="418" text-anchor="middle" class="node-text">onboarding</text>
+        <text x="410" y="435" text-anchor="middle" class="node-sub">guided setup. first run.</text>
+
+        {/* Router-to-skill edges */}
+        <path d="M 320 200 L 220 115" class="flow-line" />
+        <path d="M 500 200 L 600 115" class="flow-line" />
+        <path d="M 320 220 L 220 300" class="flow-line" />
+        <path d="M 500 220 L 600 300" class="flow-line" />
+        <path d="M 410 250 L 410 395" class="flow-line" />
+      </svg>
+      <figcaption class="text-sm prose-muted text-center mt-4 font-mono">
+        Five skills, one router. Claude Code itself is the router. Describe what you need in plain English.
+      </figcaption>
+    </figure>
+
+    {/* Job-search pipeline flow: 3 phases + parallel agent waves */}
+    <figure class="my-12 diag">
+      <svg viewBox="0 0 900 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Job search pipeline phases" class="w-full h-auto">
+        {/* Phase 1: Python exports */}
+        <rect x="30" y="30" width="840" height="80" class="node-box python" rx="4" />
+        <text x="55" y="55" class="lane-label">Phase 1. Python exports</text>
+        <text x="80" y="78" class="node-text">JobSpy scrape</text>
+        <text x="80" y="95" class="node-sub">boards, filters, dedupe</text>
+        <text x="320" y="78" class="node-text">Monitor export</text>
+        <text x="320" y="95" class="node-sub">known companies due for recheck</text>
+        <text x="600" y="78" class="node-text">Prospecting export</text>
+        <text x="600" y="95" class="node-sub">per-career-path context files</text>
+
+        {/* Wave 1 parallel agents */}
+        <rect x="30" y="140" width="840" height="130" class="node-box claude" rx="4" />
+        <text x="55" y="165" class="lane-label">Wave 1. Parallel sub-agents (claude)</text>
+
+        <rect x="60" y="180" width="220" height="70" class="node-box" rx="4" />
+        <text x="170" y="205" text-anchor="middle" class="node-text">Monitor agent</text>
+        <text x="170" y="222" text-anchor="middle" class="node-sub">checks careers pages</text>
+        <text x="170" y="237" text-anchor="middle" class="node-sub">scores by 10-dim rubric</text>
+
+        <rect x="310" y="180" width="220" height="70" class="node-box" rx="4" />
+        <text x="420" y="205" text-anchor="middle" class="node-text">Eval agent</text>
+        <text x="420" y="222" text-anchor="middle" class="node-sub">scores JobSpy results</text>
+        <text x="420" y="237" text-anchor="middle" class="node-sub">reads pending-eval.json</text>
+
+        <rect x="560" y="180" width="290" height="70" class="node-box" rx="4" />
+        <text x="705" y="205" text-anchor="middle" class="node-text">Prospecting agents (1 per path)</text>
+        <text x="705" y="222" text-anchor="middle" class="node-sub">4-step research protocol</text>
+        <text x="705" y="237" text-anchor="middle" class="node-sub">market map, competitors, funding, careers</text>
+
+        {/* Wave 2 */}
+        <rect x="30" y="295" width="840" height="90" class="node-box claude" rx="4" />
+        <text x="55" y="320" class="lane-label">Wave 2. Expansion agents (paths with 3+ hits)</text>
+        <text x="80" y="345" class="node-text">Competitor mining</text>
+        <text x="80" y="363" class="node-sub">alternatives to seed companies</text>
+        <text x="340" y="345" class="node-text">Investor portfolio mining</text>
+        <text x="340" y="363" class="node-sub">portfolio cos of seed investors</text>
+        <text x="600" y="345" class="node-text">Community / list mining</text>
+        <text x="600" y="363" class="node-sub">YC batches, curated lists, awesome-lists</text>
+
+        {/* Phase 2 + 3 */}
+        <rect x="30" y="410" width="400" height="55" class="node-box python" rx="4" />
+        <text x="55" y="435" class="lane-label">Phase 2. Python merge</text>
+        <text x="55" y="455" class="node-sub">writes target-companies.csv (source of truth)</text>
+
+        <rect x="470" y="410" width="400" height="55" class="node-box output" rx="4" />
+        <text x="495" y="435" class="lane-label" style="fill:#D9F3F0">Phase 3. Ranked dashboard</text>
+        <text x="495" y="455" class="node-sub" style="fill:#D9F3F0">priority tiers high / med / low, coverage check, run diff</text>
+
+        <path d="M 450 110 L 450 140" class="flow-line py" />
+        <path d="M 170 250 L 170 295" class="flow-line cl" />
+        <path d="M 420 250 L 420 295" class="flow-line cl" />
+        <path d="M 705 250 L 705 295" class="flow-line cl" />
+        <path d="M 450 385 L 230 410" class="flow-line cl" />
+        <path d="M 450 385 L 670 410" class="flow-line" />
+      </svg>
+      <figcaption class="text-sm prose-muted text-center mt-4 font-mono">
+        Inside the job-search skill. Wave 1 dispatches parallel sub-agents to score known companies and new job-board hits. Wave 2 runs expansion agents that find companies wave 1 missed. Every company ends up scored against a 10-dimension rubric.
+      </figcaption>
+    </figure>
+  </>
+)}
+
+{slug === 'funds-flow-audit-tool' && (
+  <figure class="my-12 diag">
+    <svg viewBox="0 0 760 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Funds Flow Audit Tool hybrid architecture" class="w-full h-auto">
+      <rect x="310" y="10" width="140" height="50" class="node-box" rx="4" />
+      <text x="380" y="40" text-anchor="middle" class="node-text">Funds flow PDF</text>
+
+      <text x="180" y="100" text-anchor="middle" class="lane-label">Python (deterministic)</text>
+      <text x="580" y="100" text-anchor="middle" class="lane-label">Claude (judgment)</text>
+
+      <rect x="80" y="120" width="200" height="55" class="node-box python" rx="4" />
+      <text x="180" y="145" text-anchor="middle" class="node-text">Parse + normalize</text>
+      <text x="180" y="164" text-anchor="middle" class="node-sub">extract_funds_flow.py</text>
+
+      <rect x="80" y="195" width="200" height="55" class="node-box python" rx="4" />
+      <text x="180" y="220" text-anchor="middle" class="node-text">Foot + format</text>
+      <text x="180" y="239" text-anchor="middle" class="node-sub">write_outputs.py</text>
+
+      <rect x="480" y="120" width="200" height="55" class="node-box claude" rx="4" />
+      <text x="580" y="145" text-anchor="middle" class="node-text">GL classification</text>
+      <text x="580" y="164" text-anchor="middle" class="node-sub">professional skepticism</text>
+
+      <rect x="480" y="195" width="200" height="55" class="node-box claude" rx="4" />
+      <text x="580" y="220" text-anchor="middle" class="node-text">Document matching</text>
+      <text x="580" y="239" text-anchor="middle" class="node-sub">in-context reasoning</text>
+
+      <rect x="280" y="280" width="200" height="50" class="node-box output" rx="4" />
+      <text x="380" y="310" text-anchor="middle" class="node-text output-text">Annotated workpaper</text>
+
+      <path d="M 380 60 L 180 120" class="flow-line py" />
+      <path d="M 380 60 L 580 120" class="flow-line cl" />
+      <path d="M 180 175 L 180 195" class="flow-line py" />
+      <path d="M 580 175 L 580 195" class="flow-line cl" />
+      <path d="M 180 250 L 310 280" class="flow-line py" />
+      <path d="M 580 250 L 450 280" class="flow-line cl" />
+    </svg>
+    <figcaption class="text-sm prose-muted text-center mt-4 font-mono">
+      Two parallel lanes. Python handles anything with a right answer. Claude handles anything that needs judgment. They merge into one auditor-reviewable workpaper.
+    </figcaption>
+  </figure>
+)}
+
+{slug === 'lovely-interiors' && (
+  <figure class="my-12 diag">
+    <svg viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Lovely Interiors paint consultation multi-agent flow" class="w-full h-auto">
+      <rect x="20" y="150" width="140" height="60" class="node-box input" rx="4" />
+      <text x="90" y="175" text-anchor="middle" class="node-text">Room photo</text>
+      <text x="90" y="195" text-anchor="middle" class="node-sub">input</text>
+
+      <rect x="210" y="30" width="170" height="60" class="node-box" rx="4" />
+      <text x="295" y="55" text-anchor="middle" class="node-text">Photo analysis</text>
+      <text x="295" y="75" text-anchor="middle" class="node-sub">gemini vision</text>
+
+      <rect x="210" y="150" width="170" height="60" class="node-box" rx="4" />
+      <text x="295" y="175" text-anchor="middle" class="node-text">Color matching</text>
+      <text x="295" y="195" text-anchor="middle" class="node-sub">semantic search</text>
+
+      <rect x="210" y="270" width="170" height="60" class="node-box" rx="4" />
+      <text x="295" y="295" text-anchor="middle" class="node-text">LRV validation</text>
+      <text x="295" y="315" text-anchor="middle" class="node-sub">design rules</text>
+
+      <rect x="430" y="150" width="170" height="60" class="node-box root" rx="4" />
+      <text x="515" y="175" text-anchor="middle" class="node-text root-text">Coordinator</text>
+      <text x="515" y="195" text-anchor="middle" class="node-sub" style="fill:#D9F3F0">google adk</text>
+
+      <rect x="640" y="90" width="100" height="55" class="node-box output" rx="4" />
+      <text x="690" y="115" text-anchor="middle" class="node-text output-text">Recs</text>
+      <text x="690" y="132" text-anchor="middle" class="node-sub" style="fill:#D9F3F0">farrow &amp; ball</text>
+
+      <rect x="640" y="220" width="100" height="55" class="node-box output" rx="4" />
+      <text x="690" y="245" text-anchor="middle" class="node-text output-text">Browser</text>
+      <text x="690" y="262" text-anchor="middle" class="node-sub" style="fill:#D9F3F0">order samples</text>
+
+      <path d="M 160 180 L 210 60" class="flow-line" />
+      <path d="M 160 180 L 210 180" class="flow-line" />
+      <path d="M 160 180 L 210 300" class="flow-line" />
+      <path d="M 380 60 L 430 180" class="flow-line" />
+      <path d="M 380 180 L 430 180" class="flow-line" />
+      <path d="M 380 300 L 430 180" class="flow-line" />
+      <path d="M 600 165 L 640 115" class="flow-line" />
+      <path d="M 600 195 L 640 245" class="flow-line" />
+    </svg>
+    <figcaption class="text-sm prose-muted text-center mt-4 font-mono">
+      Four specialized agents collaborate through a coordinator. The browser agent actually orders the physical paint samples for you.
+    </figcaption>
+  </figure>
+)}

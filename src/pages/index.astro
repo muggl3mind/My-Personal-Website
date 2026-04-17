@@ -1,0 +1,191 @@
+---
+import Base from '../layouts/Base.astro';
+import ChatWidget from '../components/ChatWidget.astro';
+import FeaturedProject from '../components/FeaturedProject.astro';
+import { featuredProjects, moreProjects } from '../data/projects';
+import { fetchMediumPosts, formatDate } from '../lib/medium';
+import { site } from '../config';
+import SocialIcons from '../components/SocialIcons.astro';
+
+const posts = (await fetchMediumPosts()).slice(0, 4);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Lovely Wisdom McInerney',
+  url: site.url,
+  jobTitle: 'AI Builder',
+  description: site.description,
+  knowsAbout: [
+    'Artificial Intelligence',
+    'Multi-agent systems',
+    'Claude skills',
+    'Retrieval-augmented generation',
+    'Accounting',
+    'Audit',
+    'Private equity fund administration',
+    'Forward Deployed Engineering',
+  ],
+  alumniOf: [
+    { '@type': 'Organization', name: 'Big 4 Public Accounting' },
+  ],
+  sameAs: [
+    site.social.github,
+    site.social.linkedin,
+    site.social.medium,
+    site.social.youtube,
+  ],
+};
+---
+
+<Base title={undefined} jsonLd={jsonLd}>
+  <!-- HERO -->
+  <section class="content-width mb-20 md:mb-28">
+    <p class="text-sm font-mono prose-muted mb-8 tracking-wider uppercase">
+      <span class="inline-block w-8 h-px bg-accent dark:bg-accent-dark align-middle mr-2"></span>
+      Accountant <span aria-hidden="true">→</span><span class="sr-only">turned</span> AI builder
+    </p>
+    <h1 class="mb-10" style="font-size: clamp(36px, 5vw, 58px); line-height: 1.1;">
+      An accountant's notes on AI.<br>
+      Expect more <em class="text-accent dark:text-accent-dark not-italic font-display" style="font-style:italic">skepticism</em> than hype.
+    </h1>
+    <p class="text-xl prose-muted leading-relaxed max-w-[640px]">
+      When ChatGPT launched in late 2022, it was a global moment. Not without
+      controversy, but impossible to ignore. I was watching from the sidelines
+      as the models kept getting better, and the pace was striking. Every few
+      months, something that couldn't work before suddenly could. After twelve
+      years in accounting and audit, I could see how this was going to change
+      the industry. So almost three years after that first ChatGPT moment, I
+      decided to leave and start building.
+    </p>
+    <p class="text-xl prose-muted leading-relaxed max-w-[640px] mt-4">
+      The projects, the posts, the lessons learned: it's all here.
+    </p>
+  </section>
+
+  <!-- CHAT: the front-door feature, visually dominant -->
+  <section class="mb-24 md:mb-32" aria-labelledby="chat-heading">
+    <div class="bg-tinted dark:bg-tinted-dark border-y-2 border-accent dark:border-accent-dark py-16 md:py-20">
+      <div class="content-width">
+        <div class="mb-6 flex items-start gap-4">
+          <span class="inline-block w-3 h-3 rounded-full bg-accent dark:bg-accent-dark mt-2 animate-pulse-cursor"></span>
+          <div>
+            <h2 id="chat-heading" class="font-display text-4xl md:text-5xl leading-tight mb-2 mt-0">
+              Ask me anything.
+            </h2>
+            <p class="prose-muted text-lg max-w-[560px]">
+              Want to know how I think? Ask away. This AI is trained on my
+              actual work, not generic data, so you'll get answers based on
+              my experience, projects, and writing.
+            </p>
+            <p class="prose-muted text-lg max-w-[560px] mt-3">
+              It responds fast and streams in real time, like you're chatting
+              with me directly.
+            </p>
+          </div>
+        </div>
+
+        <ChatWidget />
+      </div>
+    </div>
+  </section>
+
+  <!-- SELECTED WORK: full-width stacked cards -->
+  <section class="bg-tinted dark:bg-tinted-dark py-20 md:py-28 mb-24 md:mb-32 rule-line border-y">
+    <div class="content-width" aria-labelledby="work-heading">
+      <p class="text-sm font-mono prose-muted mb-4 uppercase tracking-wider">
+        <span class="inline-block w-8 h-px bg-accent dark:bg-accent-dark align-middle mr-2"></span>
+        Selected work
+      </p>
+      <h2 id="work-heading" class="font-display text-4xl md:text-5xl mb-16 mt-0 leading-tight">
+        My Portfolio
+      </h2>
+
+      <div class="space-y-20 md:space-y-28">
+        {featuredProjects.map((p, i) => (
+          <FeaturedProject project={p} index={i} reverse={i % 2 === 1} />
+        ))}
+      </div>
+
+      {moreProjects.length > 0 && (
+        <p class="mt-20 text-sm prose-muted">
+          More work:
+          {moreProjects.map((p, i) => (
+            <>
+              {i > 0 && <span> · </span>}
+              <a href={`/projects/${p.slug}/`} class="text-ink dark:text-ink-dark">{p.title}</a>
+            </>
+          ))}
+          <span> · </span>
+          <a href={site.social.github} class="text-ink dark:text-ink-dark">All on GitHub →</a>
+        </p>
+      )}
+    </div>
+  </section>
+
+  <!-- WRITING -->
+  <section class="content-width mb-24 md:mb-32" aria-labelledby="writing-heading">
+    <div class="flex items-baseline justify-between mb-10">
+      <div>
+        <p class="text-sm font-mono prose-muted mb-4 uppercase tracking-wider">
+          <span class="inline-block w-8 h-px bg-gold dark:bg-gold-dark align-middle mr-2"></span>
+          Writing
+        </p>
+        <h2 id="writing-heading" class="font-display text-4xl md:text-5xl mt-0 leading-tight">Recent essays.</h2>
+      </div>
+      <a href="/writing" class="text-sm">See all →</a>
+    </div>
+    <ul class="space-y-8">
+      {posts.map((post) => (
+        <li>
+          <a href={post.url} rel="external" class="flex gap-5 md:gap-7 nolink group">
+            {post.imageUrl && (
+              <img
+                src={post.imageUrl}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                class="w-28 h-28 md:w-40 md:h-40 object-cover shrink-0 rule-line border"
+              />
+            )}
+            <div class="flex-1 min-w-0">
+              <div class="font-display text-2xl md:text-[28px] leading-tight mb-2 group-hover:text-accent dark:group-hover:text-accent-dark transition-colors">
+                {post.title}
+              </div>
+              <div class="text-sm prose-muted mt-1 line-clamp-2">{post.excerpt}</div>
+              <div class="text-xs font-mono prose-muted mt-2 flex gap-3">
+                <span>{formatDate(post.pubDate)}</span>
+                <span>·</span>
+                <span>{post.readingTimeMin} min read</span>
+              </div>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- CONTACT CTA -->
+  <section class="content-width mb-8">
+    <div class="rule-line border-2 border-accent dark:border-accent-dark p-8 md:p-16 bg-paper dark:bg-paper-dark relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-32 h-32 md:w-48 md:h-48 bg-gold dark:bg-gold-dark opacity-10 -translate-y-12 translate-x-12 rounded-full"></div>
+      <div class="relative">
+        <h2 class="font-display text-5xl md:text-6xl mt-0 mb-6 leading-none">Let's talk.</h2>
+        <p class="prose-muted mb-10 max-w-[560px] text-lg leading-relaxed">
+          If you're building AI products and you need someone who has actually
+          shipped finance workflows, not just read about them, I want to hear
+          what you're working on.
+        </p>
+        <div class="flex flex-wrap gap-x-8 gap-y-4 text-base items-center">
+          <a
+            href="/contact"
+            class="inline-block bg-accent dark:bg-accent-dark text-white px-8 py-4 text-lg font-semibold nolink hover:opacity-90 transition-opacity"
+          >
+            Send me a message →
+          </a>
+          <SocialIcons size="lg" />
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
