@@ -6,6 +6,11 @@ import { site } from '../config';
 // Scaffold page. Fill src/data/cv.ts, then add a nav link in
 // src/layouts/Base.astro (Work · Writing · CV · Contact) to publish.
 const isEmpty = cv.roles.length === 0 && cv.education.length === 0;
+
+// Don't expose an empty /cv to the public. Redirect to /about until data is filled.
+if (isEmpty) {
+  return Astro.redirect('/about', 301);
+}
 ---
 
 <Base title="CV" description={`${site.author.name} — curriculum vitae.`}>
