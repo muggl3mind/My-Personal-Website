@@ -104,22 +104,25 @@ const workerUrl = site.workerUrl;
   <body>
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:bg-paper focus:dark:bg-paper-dark focus:p-2 focus:rule-line focus:border focus:z-50">Skip to content</a>
 
-    <!-- Accent bar at top of every page -->
-    <div class="h-1 bg-accent dark:bg-accent-dark"></div>
+    <!-- Sticky site chrome: accent bar + nav persist on scroll -->
+    <div class="sticky top-0 z-40 bg-paper/90 dark:bg-paper-dark/90 backdrop-blur-sm rule-line border-b">
+      <div class="h-1 bg-accent dark:bg-accent-dark"></div>
+      <header class="content-width py-5">
+        <nav class="flex items-center justify-between text-sm">
+          <a href="/" class="font-semibold text-base nolink">
+            <span class="inline-block w-2 h-2 rounded-full bg-accent dark:bg-accent-dark mr-2 align-middle"></span>{site.title}
+          </a>
+          <div class="flex gap-5 md:gap-6 items-center">
+            <a href="/about" class="py-2">About</a>
+            <a href="/portfolio" class="py-2">Work</a>
+            <a href="/writing" class="py-2">Writing</a>
+            <a href="/contact" class="py-2">Contact</a>
+          </div>
+        </nav>
+      </header>
+    </div>
 
-    <header class="content-width pt-10 pb-16">
-      <nav class="flex items-center justify-between text-sm">
-        <a href="/" class="font-semibold text-base nolink">
-          <span class="inline-block w-2 h-2 rounded-full bg-accent dark:bg-accent-dark mr-2 align-middle"></span>{site.title}
-        </a>
-        <div class="flex gap-5 md:gap-6 items-center">
-          <a href="/about">About</a>
-          <a href="/portfolio">Work</a>
-          <a href="/writing">Writing</a>
-          <a href="/contact">Contact</a>
-        </div>
-      </nav>
-    </header>
+    <div class="pt-10"></div>
 
     <main id="main">
       <slot />
