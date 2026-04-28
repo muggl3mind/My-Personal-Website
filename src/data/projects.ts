@@ -24,6 +24,7 @@ export interface Project {
   posterSrc?: string;
   fullDemoSrc?: string; // full-length demo with audio for deep page
   demoUrl?: string; // External demo (e.g. YouTube) linked from deep page
+  blogUrl?: string; // Companion blog post (e.g. Medium) linked from deep page header
   featured: boolean;
   whatItDoes: string[];
   whyBuilt: string;
@@ -32,6 +33,38 @@ export interface Project {
 }
 
 export const projects: Project[] = [
+  {
+    slug: 'claude-code-starter-pack',
+    title: 'Claude Code Starter Pack',
+    subtitle: 'A non-developer\'s onramp to Claude Code',
+    oneLine:
+      'A Claude Code skill that walks first-time builders through their first project end-to-end. Detects what is already installed, sets up the planning and brainstorming toolkits, interviews you about what you want to build, generates your project files, and launches a guided brainstorming session before you write a line of code.',
+    stack: 'Claude Code skills · gstack · superpowers · LSP servers',
+    repoUrl: 'https://github.com/muggl3mind/Claude-Code-Starter-Pack',
+    videoSrc: '/videos/claude-code-starter-pack.webm',
+    posterSrc: '/videos/claude-code-starter-pack-poster.jpg',
+    fullDemoSrc: '/videos/claude-code-starter-pack-full.webm',
+    demoUrl: 'https://www.youtube.com/watch?v=1AwF5finyyA',
+    blogUrl:
+      'https://medium.com/@lovely.mcinerney/built-a-portfolio-site-with-my-own-ai-chatbot-using-claude-code-66ca39ae15b7',
+    featured: true,
+    whatItDoes: [
+      'Installs the toolkits Claude needs (brainstorming, planning, code intelligence) and skips anything you already have.',
+      'Interviews you about what you are building, who it is for, and how it should look. One question at a time.',
+      'Sets up your project files: a CLAUDE.md with your preferences and a LESSONS.md where Claude logs corrections so it does not repeat them.',
+      'Launches an interactive brainstorming session to shape your idea before you write any code.',
+    ],
+    whyBuilt:
+      'I built my entire portfolio site, including a personal AI chatbot, using nothing but Claude Code. The whole time I kept thinking: there is a giant gap between "Claude Code is installed" and "I have a working project." Most tutorials assume you already know what a plugin is, what a slash command does, and how to structure a repo. The starter pack is the onramp I wish I had on day one. Everything I learned the hard way, packaged so the next person does not have to.',
+    hardPoints: [
+      'Designing the workflow to be frictionless for someone who has never used a terminal. A few manual prompts are unavoidable (Claude Code needs the user to paste a /plugin command now and then), but I cut everything else: only the tools and plugins that genuinely help a first-time user make the cut, and SKILL.md drills Claude on how to pace the user through each one. Show the command, say "tell me when it is done," and STOP. That single discipline is what makes the install feel calm instead of frantic.',
+    ],
+    outcomePoints: [
+      'A complete setup of everything you need to start building something cool with Claude Code.',
+      'A clear idea of what you are building, sharpened by an interactive brainstorming session before any code is written.',
+      'A reusable command: type /starter-pack in any folder and the whole flow runs again for the next project.',
+    ],
+  },
   {
     slug: 'career-manager',
     title: 'Career Manager',
