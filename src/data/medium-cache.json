@@ -1,5 +1,13 @@
 [
   {
+{
+    "title": "I Built a Gardening Tool to Stop AI From Guessing",
+    "url": "https://medium.com/@lovely.mcinerney/i-built-a-gardening-tool-to-stop-ai-from-guessing-fedaa055ef11",
+    "pubDate": "2026-06-09T00:00:00.000Z",
+    "readingTimeMin": 8,
+    "excerpt": "What I learned building a garden planner that uses deterministic rules for every spacing and companion constraint, and only lets AI explain the result — never determine it."
+  },
+  
     "title": "Are we building AI to check AI to check AI?",
     "url": "https://medium.com/@lovely.mcinerney/are-we-building-ai-to-check-ai-to-check-ai",
     "pubDate": "2026-03-20T00:00:00.000Z",
