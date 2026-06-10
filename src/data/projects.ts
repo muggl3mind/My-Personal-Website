@@ -196,6 +196,38 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: 'amuma',
+    title: 'Amuma Garden Designer',
+    subtitle: 'Explainable layout planning for beginner vegetable and herb gardens',
+    oneLine:
+      'A garden planning tool where deterministic rules own every spacing, companion, and harvest-access constraint — and AI is only allowed to explain the result. Input bed size, location, and crop choices. Get a scored planting grid backed by a full audit trail.',
+    stack: 'Next.js · TypeScript · Pixi.js · OpenRouter (Qwen 3 32B) · Verdantly plant API · deterministic solver',
+    repoUrl: 'https://github.com/muggl3mind/amuma-designer',
+    demoUrl: 'https://www.amuma.ai',
+    blogUrl:
+      'https://medium.com/@lovely.mcinerney/i-built-a-gardening-tool-to-stop-ai-from-guessing-fedaa055ef11',
+    featured: false,
+    whatItDoes: [
+      'Takes bed dimensions, location (USDA hardiness zone), sun exposure, and crop choices and generates a plantable grid layout instantly — no account required.',
+      'A deterministic solver scores every candidate layout against spacing requirements, mature plant spread, companion planting conflicts, water needs, and harvest-aisle access. Hard constraint violations are blocked before the AI ever sees the layout.',
+      'An AI reviewer writes a bounded final narrative — summary, strengths, concerns, and suggested fixes — using only the structured facts the solver already validated. It cannot invent plants, override spacing rules, or add crops you did not select.',
+      'Outputs a planting table with start method (direct sow vs. transplant), spacing, and timing for each crop, plus a full audit trail of what the app knew, where the data came from, and how it scored each constraint.',
+    ],
+    whyBuilt:
+      'Every gardening app I tried either required expert knowledge to fill out the intake form — hardiness zones, root depth, companion planting conflicts — or handed back vague AI suggestions with no way to verify them. The design constraint that shaped Amuma: AI can explain the layout but it cannot determine the layout. Every bed dimension, planting window, spacing rule, and companion conflict has to live somewhere sturdier than a prompt. That discipline turned out to be the hardest part of building a tool a beginner can actually trust.',
+    hardPoints: [
+      'The first version asked too much of the user. A beginner does not know their hardiness zone, the difference between direct sow and transplant crops, or what companion planting means. The final intake only asks what materially changes the plan.',
+      'Drawing the line between solver and AI. Anything with a deterministic right answer — spacing, mature spread, hard companion conflicts, planting windows — belongs in the solver. Anything that benefits from natural language — explaining why two crops conflict, surfacing height and shade tradeoffs — goes to the LLM. Mixing the two in one step erases the audit trail.',
+      'Evals as internal controls. Three layers run before any layout reaches a user: plant record normalization validation, verification of all supported plants, and crop-mix decision validation. They exist to catch confidence-building errors quietly — the failure mode that only shows up after the demo.',
+    ],
+    outcomePoints: [
+      'A scored planting grid for any vegetable or herb bed, generated from bed size, location, sun, and crop choices.',
+      "A bounded AI narrative that explains the layout's strengths, concerns, and suggested fixes — with no ability to override the solver's decisions.",
+      'A full audit trail: what the app knew about each plant, where the data came from, and how every constraint was scored.',
+      'A planting table with start method, spacing, and timing per crop. Live at www.amuma.ai.',
+    ],
+  },
+  {
     slug: 'lovely-interiors',
     title: 'Lovely Interiors',
     subtitle: 'AI paint consultation with computer vision',
