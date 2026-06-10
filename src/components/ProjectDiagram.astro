@@ -387,6 +387,68 @@ const { slug } = Astro.props;
   </figure>
 )}
 
+{slug === 'amuma' && (
+  <figure class="my-12 diag">
+    <svg viewBox="0 0 800 530" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Amuma Garden Designer architecture: user inputs feed a plant catalog and deterministic solver, which together produce a scored layout that a bounded AI reviewer explains in plain language." class="w-full h-auto">
+      {/* User Input */}
+      <rect x="270" y="20" width="260" height="70" class="node-box center" rx="4" />
+      <text x="400" y="48" text-anchor="middle" class="node-text center-text">User Input</text>
+      <text x="400" y="68" text-anchor="middle" class="node-sub" style="fill:#F5D9A8">bed size · location · crops · sun</text>
+
+      {/* Fork lines from input to two lanes */}
+      <path d="M 400 90 L 400 115 L 160 115 L 160 140" class="flow-line" />
+      <path d="M 400 90 L 400 115 L 640 115 L 640 140" class="flow-line" />
+
+      {/* Left lane: Plant Catalog */}
+      <rect x="40" y="140" width="240" height="110" class="node-box leaf" rx="4" />
+      <text x="160" y="168" text-anchor="middle" class="node-text">Plant Catalog</text>
+      <text x="160" y="188" text-anchor="middle" class="node-sub">Verdantly plant API</text>
+      <text x="160" y="204" text-anchor="middle" class="node-sub">normalized to consistent shapes</text>
+      <text x="160" y="220" text-anchor="middle" class="node-sub">audit trail per plant record</text>
+      <text x="160" y="236" text-anchor="middle" class="node-sub">31 supported crops</text>
+
+      {/* Right lane: Deterministic Solver */}
+      <rect x="520" y="140" width="240" height="110" class="node-box python" rx="4" />
+      <text x="640" y="168" text-anchor="middle" class="node-text">Deterministic Solver</text>
+      <text x="640" y="188" text-anchor="middle" class="node-sub">spacing · mature spread</text>
+      <text x="640" y="204" text-anchor="middle" class="node-sub">companion conflicts · water needs</text>
+      <text x="640" y="220" text-anchor="middle" class="node-sub">harvest-aisle access</text>
+      <text x="640" y="236" text-anchor="middle" class="node-sub">generates + scores candidate layouts</text>
+
+      {/* Merge lines to AI Reviewer */}
+      <path d="M 160 250 L 160 278 L 400 278" class="flow-line" />
+      <path d="M 640 250 L 640 278 L 400 278" class="flow-line" />
+      <path d="M 400 278 L 400 295" class="flow-line" />
+
+      {/* AI Reviewer */}
+      <rect x="245" y="295" width="310" height="90" class="node-box claude" rx="4" />
+      <text x="400" y="322" text-anchor="middle" class="node-text">AI Reviewer (bounded)</text>
+      <text x="400" y="342" text-anchor="middle" class="node-sub">explains tradeoffs in plain language</text>
+      <text x="400" y="358" text-anchor="middle" class="node-sub">cannot invent plants · override spacing</text>
+      <text x="400" y="374" text-anchor="middle" class="node-sub">or add crops you did not select</text>
+
+      {/* Fork lines to outputs */}
+      <path d="M 400 385 L 400 415 L 190 415 L 190 440" class="flow-line gold" />
+      <path d="M 400 385 L 400 415 L 610 415 L 610 440" class="flow-line gold" />
+
+      {/* Output left: Scored Grid */}
+      <rect x="60" y="440" width="260" height="75" class="node-box output" rx="4" />
+      <text x="190" y="468" text-anchor="middle" class="node-text output-text">Scored Grid</text>
+      <text x="190" y="486" text-anchor="middle" class="node-sub" style="fill:#D9F3F0">planting layout with constraint</text>
+      <text x="190" y="502" text-anchor="middle" class="node-sub" style="fill:#D9F3F0">scores and full audit trail</text>
+
+      {/* Output right: Planting Table */}
+      <rect x="480" y="440" width="260" height="75" class="node-box output" rx="4" />
+      <text x="610" y="468" text-anchor="middle" class="node-text output-text">Planting Table</text>
+      <text x="610" y="486" text-anchor="middle" class="node-sub" style="fill:#D9F3F0">start method · spacing · timing</text>
+      <text x="610" y="502" text-anchor="middle" class="node-sub" style="fill:#D9F3F0">per crop in the bed</text>
+    </svg>
+    <figcaption class="text-sm prose-muted text-center mt-4 font-mono leading-relaxed max-w-[640px] mx-auto">
+      The plant catalog and deterministic solver run independently, then merge. The AI reviewer only sees validated facts — it explains the layout it cannot change.
+    </figcaption>
+  </figure>
+)}
+
 {slug === 'lovely-interiors' && (
   <figure class="my-12 diag">
     <svg viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Lovely Interiors paint consultation multi-agent flow" class="w-full h-auto">
