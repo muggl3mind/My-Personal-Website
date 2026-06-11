@@ -19,7 +19,7 @@ export interface Project {
   subtitle: string;
   oneLine: string;
   stack: string;
-  repoUrl: string;
+  repoUrl?: string; // omit when the repo is private
   videoSrc?: string; // short autoplay loop for homepage card
   posterSrc?: string;
   fullDemoSrc?: string; // full-length demo with audio for deep page
@@ -202,7 +202,6 @@ export const projects: Project[] = [
     oneLine:
       'A garden planning tool where deterministic rules own every spacing, companion, and harvest-access constraint — and AI is only allowed to explain the result. Input bed size, location, and crop choices. Get a scored planting grid backed by a full audit trail.',
     stack: 'Next.js · TypeScript · Pixi.js · OpenRouter (Qwen 3 32B) · Verdantly plant API · deterministic solver',
-    repoUrl: 'https://github.com/muggl3mind/amuma-designer',
     demoUrl: 'https://www.amuma.ai',
     blogUrl:
       'https://medium.com/@lovely.mcinerney/i-built-a-gardening-tool-to-stop-ai-from-guessing-fedaa055ef11',
@@ -241,7 +240,7 @@ export const projects: Project[] = [
       'Runs a structured consultation that tracks your requirements room by room so recommendations compound across a whole house, not just a single wall.',
       'Searches a specialized 300-color paint catalog with technical specs, matching undertones and design-harmony rules rather than keyword similarity.',
       'Validates each recommendation against LRV (light reflectance value) targets and basic design principles before it shows up in the shortlist.',
-      'Optionally hands off to a browser-automation agent that orders the physical sample swatches from the retailer\'s site, with retry and cart-state recovery.',
+      'Optionally hands off to a browser-automation agent that fills the retailer\'s cart with your sample swatches, with retry and cart-state recovery. You review the cart and complete the purchase.',
     ],
     whyBuilt:
       "Consider this my LinkedIn comeback entry. I have always been fascinated by interior design, even if accounting became my career, but decision fatigue around paint palettes kept me from bringing that passion into my own home. Instead of using a generic ChatGPT or Gemini prompt, I built something purpose-built: a specialized color database, a structured consultation that tracks my requirements, a room-by-room paint plan, and automated sample ordering. Sometimes the best way to learn new tech is to solve your own problem.",
@@ -255,7 +254,7 @@ export const projects: Project[] = [
       'A shortlist of paint colors matched to your photo, with per-color rationale that references the lighting and undertones the vision agent saw.',
       'LRV + design-rule validation per recommendation so you can see why a color made the list.',
       'A room-by-room paint plan when you consult on multiple spaces.',
-      'Physical samples ordered to your door, optional.',
+      'Optional sample run: the agent preps the retailer cart with your swatches and stops at checkout review for you to complete.',
       'Professional handoff export for a contractor. Not a consumer toy, structured enough to hand to a pro.',
     ],
   },

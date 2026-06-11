@@ -52,7 +52,7 @@ const next = idx >= 0 && idx < projects.length - 1 ? projects[idx + 1] : null;
       <h1 class="mb-3">{project.title}</h1>
       <p class="text-lg prose-muted">{project.subtitle}</p>
       <div class="mt-6 flex flex-wrap gap-4 text-sm">
-        <a href={project.repoUrl} rel="external">GitHub →</a>
+        {project.repoUrl && <a href={project.repoUrl} rel="external">GitHub →</a>}
         {project.demoUrl && <a href={project.demoUrl} rel="external">Watch the full demo →</a>}
         {project.blogUrl && <a href={project.blogUrl} rel="external">Read on Medium →</a>}
       </div>

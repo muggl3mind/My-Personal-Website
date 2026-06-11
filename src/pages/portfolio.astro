@@ -83,7 +83,7 @@ const other = projects.filter((p) => !p.featured);
             <p class="text-xs font-mono prose-muted mb-3">{project.stack}</p>
             <div class="flex gap-5 text-sm">
               <a href={`/projects/${project.slug}/`} class="font-semibold text-accent dark:text-accent-dark">Deep dive →</a>
-              <a href={project.repoUrl} rel="external">GitHub →</a>
+              {project.repoUrl && <a href={project.repoUrl} rel="external">GitHub →</a>}
             </div>
           </div>
         </article>

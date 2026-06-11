@@ -89,6 +89,7 @@ $RECYCLE.BIN/
 .serena/
 
 # ---------- internal planning docs (local only) ----------
+CLAUDE.md
 PLAN.md
 TODOS.md
 NOTES.md
@@ -110,3 +111,4 @@ corpus-manifest.json
 
 # ---------- design drafts / mockups (local only) ----------
 scripts/og-mockup.*
+demo/
