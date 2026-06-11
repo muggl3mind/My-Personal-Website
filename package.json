@@ -26,9 +26,9 @@
     "tailwindcss": "^3.4.14"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "^0.5.41",
+    "@cloudflare/vitest-pool-workers": "^0.16.15",
     "@cloudflare/workers-types": "^4.20260409.1",
-    "vitest": "^2.1.9",
+    "vitest": "^4.1.8",
     "wrangler": "^4.81.1"
   }
 }

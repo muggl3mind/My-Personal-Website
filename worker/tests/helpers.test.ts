@@ -209,7 +209,7 @@ describe('respondWithRefusal', () => {
 describe('applyRetrievalFloor', () => {
   const chunk = (id: string) => ({ id, source: 's', text: 't', embedding: [] });
 
-  it('rejects when no chunks meet MIN_SIMILARITY (0.45)', () => {
+  it('rejects when no chunks meet MIN_SIMILARITY (0.40)', () => {
     const scored = [
       { chunk: chunk('a'), score: 0.3 },
       { chunk: chunk('b'), score: 0.2 },
@@ -217,10 +217,10 @@ describe('applyRetrievalFloor', () => {
     expect(applyRetrievalFloor(scored).ok).toBe(false);
   });
 
-  it('rejects when top-1 is below TOP_1_FLOOR (0.50)', () => {
+  it('rejects when top-1 is below TOP_1_FLOOR (0.42)', () => {
     const scored = [
-      { chunk: chunk('a'), score: 0.48 },
-      { chunk: chunk('b'), score: 0.46 },
+      { chunk: chunk('a'), score: 0.41 },
+      { chunk: chunk('b'), score: 0.405 },
     ];
     expect(applyRetrievalFloor(scored).ok).toBe(false);
   });
